@@ -1,0 +1,2 @@
+FubuSaml2.Testing
+FubuMVC.Saml2.Testing
