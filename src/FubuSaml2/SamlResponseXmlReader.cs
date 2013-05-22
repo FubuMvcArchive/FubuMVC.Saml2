@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Linq;
+using FubuCore.Conversion;
 
 namespace FubuSaml2
 {
@@ -40,10 +41,23 @@ namespace FubuSaml2
             var response = new SamlResponse
             {
                 Issuer = readIssuer(),
-                Status = readStatusCode().ToEnumValue<SamlResponseStatus>()
+                Status = readStatusCode().ToEnumValue<SamlResponseStatus>(),
+                Conditions = readConditions()
             };
 
             return response;
+        }
+
+        private ConditionGroup readConditions()
+        {
+            var element = find("Conditions", AssertionXsd);
+            var group = new ConditionGroup
+            {
+                NotBefore = element.ReadAttribute<DateTimeOffset>("NotBefore"),
+                NotOnOrAfter = element.ReadAttribute<DateTimeOffset>("NotOnOrAfter"),
+            };
+
+            return group;
         }
 
         private string readStatusCode()
@@ -54,6 +68,8 @@ namespace FubuSaml2
 
     public static class SamlBasicExtensions
     {
+        private static readonly IObjectConverter converter = new ObjectConverter();
+
         public static Uri ToUri(this string uri)
         {
             return new Uri(uri);
@@ -62,6 +78,11 @@ namespace FubuSaml2
         public static T ToEnumValue<T>(this string text)
         {
             return (T) Enum.Parse(typeof (T), text);
+        }
+
+        public static T ReadAttribute<T>(this XmlElement element, string attribute) 
+        {
+            return element.HasAttribute(attribute) ? converter.FromString<T>(element.GetAttribute(attribute)) : default(T);
         }
     }
 }
