@@ -67,14 +67,19 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FakeTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlResponseXmlReaderTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FubuSaml2\FubuSaml2.csproj">
       <Project>{4EC6063B-FED9-4233-BF95-EED099855318}</Project>
       <Name>FubuSaml2</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sample.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
