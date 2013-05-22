@@ -51,5 +51,33 @@ namespace FubuSaml2.Testing
             audienceRestricution.Audiences.Single()
                                 .ShouldEqual(new Uri("https://qa2.online.com/qa2/sso/saml"));
         }
+
+        [Test]
+        public void can_read_the_subject_name()
+        {
+            theResponse.Subject.Name.ShouldEqual(new SamlName
+            {
+                Type = SamlNameType.NameID,
+                Value = "aa50045c6d0a233e7c20003d7d0000aa33"
+            });
+        }
+
+        [Test]
+        public void can_read_the_subject_confirmation_method()
+        {
+            theResponse.Subject.Confirmations.Single()
+                       .Method.ShouldEqual("urn:oasis:names:tc:SAML:2.0:cm:bearer".ToUri());
+        }
+
+        [Test]
+        public void subject_confirmation_data()
+        {
+            var data = theResponse.Subject.Confirmations.Single()
+                                  .ConfirmationData.Single();
+
+            data.NotOnOrAfter.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-01T18:19:04Z"));
+            data.Recipient.ShouldEqual("https://qa2.online.com/qa2/sso/saml".ToUri());
+
+        }
     }
 }

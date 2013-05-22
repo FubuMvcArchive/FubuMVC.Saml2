@@ -6,10 +6,15 @@ using FubuCore.Conversion;
 
 namespace FubuSaml2
 {
-    public class SamlResponseXmlReader
+    public class ReadsSamlXml
     {
         public static readonly string AssertionXsd = "urn:oasis:names:tc:SAML:2.0:assertion";
         public static readonly string ProtocolXsd = "urn:oasis:names:tc:SAML:2.0:protocol";
+
+    }
+
+    public class SamlResponseXmlReader : ReadsSamlXml
+    {
 
         private readonly XmlDocument _document;
 
@@ -43,7 +48,8 @@ namespace FubuSaml2
             {
                 Issuer = readIssuer(),
                 Status = readStatusCode().ToEnumValue<SamlResponseStatus>(),
-                Conditions = readConditions()
+                Conditions = readConditions(),
+                Subject = new Subject(find("Subject", AssertionXsd))
             };
 
             return response;
@@ -52,28 +58,9 @@ namespace FubuSaml2
         private ConditionGroup readConditions()
         {
             var element = find("Conditions", AssertionXsd);
-            var group = new ConditionGroup
-            {
-                NotBefore = element.ReadAttribute<DateTimeOffset>("NotBefore"),
-                NotOnOrAfter = element.ReadAttribute<DateTimeOffset>("NotOnOrAfter"),
-            
-                Conditions = readAudiences(element)
-            };
-
-            return group;
+            return new ConditionGroup(element);
         }
 
-        private AudienceRestriction[] readAudiences(XmlElement conditions)
-        {
-            return conditions.Children("AudienceRestriction", AssertionXsd)
-                             .Select(elem => {
-                                 var audiences = elem.Children("Audience", AssertionXsd).Select(x => x.InnerText.ToUri()).ToArray();
-                                 return new AudienceRestriction
-                                 {
-                                     Audiences = audiences
-                                 };
-                             }).ToArray();
-        }
 
         private string readStatusCode()
         {
@@ -91,6 +78,12 @@ namespace FubuSaml2
             {
                 yield return (XmlElement) node;
             }
+        }
+
+        public static XmlElement FindChild(this XmlElement element, string name, string xsd)
+        {
+            var children = element.GetElementsByTagName(name, xsd);
+            return (XmlElement) (children.Count > 0 ? children[0] : null);
         }
 
         public static Uri ToUri(this string uri)
