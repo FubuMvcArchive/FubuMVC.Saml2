@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
 using FubuCore.Conversion;
@@ -55,9 +56,23 @@ namespace FubuSaml2
             {
                 NotBefore = element.ReadAttribute<DateTimeOffset>("NotBefore"),
                 NotOnOrAfter = element.ReadAttribute<DateTimeOffset>("NotOnOrAfter"),
+            
+                Conditions = readAudiences(element)
             };
 
             return group;
+        }
+
+        private AudienceRestriction[] readAudiences(XmlElement conditions)
+        {
+            return conditions.Children("AudienceRestriction", AssertionXsd)
+                             .Select(elem => {
+                                 var audiences = elem.Children("Audience", AssertionXsd).Select(x => x.InnerText.ToUri()).ToArray();
+                                 return new AudienceRestriction
+                                 {
+                                     Audiences = audiences
+                                 };
+                             }).ToArray();
         }
 
         private string readStatusCode()
@@ -69,6 +84,14 @@ namespace FubuSaml2
     public static class SamlBasicExtensions
     {
         private static readonly IObjectConverter converter = new ObjectConverter();
+
+        public static IEnumerable<XmlElement> Children(this XmlElement element, string name, string xsd)
+        {
+            foreach (XmlNode node in element.GetElementsByTagName(name, SamlResponseXmlReader.AssertionXsd))
+            {
+                yield return (XmlElement) node;
+            }
+        }
 
         public static Uri ToUri(this string uri)
         {

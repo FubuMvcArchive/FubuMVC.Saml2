@@ -3,6 +3,7 @@ using System.Xml;
 using FubuCore;
 using FubuTestingSupport;
 using NUnit.Framework;
+using System.Linq;
 
 namespace FubuSaml2.Testing
 {
@@ -33,12 +34,22 @@ namespace FubuSaml2.Testing
             theResponse.Status.ShouldEqual(SamlResponseStatus.Success);
         }
 
-
         [Test]
         public void can_read_the_condition_group_time_constraints()
         {
             theResponse.Conditions.NotBefore.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-01T18:13:04Z"));
             theResponse.Conditions.NotOnOrAfter.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-01T18:19:04Z"));
+        }
+
+        [Test]
+        public void can_read_audience_restriction()
+        {
+            var audienceRestricution = theResponse.Conditions.Conditions
+                .Single()
+                .ShouldBeOfType<AudienceRestriction>();
+
+            audienceRestricution.Audiences.Single()
+                                .ShouldEqual(new Uri("https://qa2.online.com/qa2/sso/saml"));
         }
     }
 }
