@@ -13,7 +13,7 @@ namespace FubuSaml2
     public class SamlResponse
     {
         public SamlResponseStatus Status { get; set; }
-        public string Issuer { get; set; }
+        public Uri Issuer { get; set; }
         public X509Certificate2 Signature { get; set; }
 
         public Subject Subject { get; set; }
