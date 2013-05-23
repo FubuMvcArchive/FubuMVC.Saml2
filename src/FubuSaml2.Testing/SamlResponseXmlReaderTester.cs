@@ -86,5 +86,17 @@ namespace FubuSaml2.Testing
             theResponse.Attributes.Get("ClientId").ShouldEqual("000012345");
             theResponse.Attributes.Get("CustomerId").ShouldEqual("001010111");
         }
+
+        [Test]
+        public void can_read_the_certificates()
+        {
+            theResponse.Certificate.Any().ShouldBeTrue();
+        }
+
+        [Test, Ignore("CANNOT USE THIS UNTIL WE GET FAKE DATA")]
+        public void is_signed_positive()
+        {
+            theResponse.Signed.ShouldEqual(SignatureStatus.Signed);
+        }
     }
 }

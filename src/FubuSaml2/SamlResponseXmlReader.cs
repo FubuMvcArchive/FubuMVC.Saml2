@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
 using System.Xml;
 using System.Linq;
 using FubuCore.Conversion;
@@ -37,6 +39,40 @@ namespace FubuSaml2
             return element == null ? null : element.InnerText;
         }
 
+        // This assumes signing cert is embedded in the signature
+        private void readSignaturesAndCertificates(SamlResponse response)
+        {
+            var element = find("Signature", "http://www.w3.org/2000/09/xmldsig#");
+            if (element == null)
+            {
+                response.Signed = FubuSaml2.SignatureStatus.NotSigned;
+                return;
+            }
+            
+            var signedXml = new SignedXml(_document);
+            signedXml.LoadXml(element);
+
+            response.Signed = signedXml.CheckSignature()
+                       ? FubuSaml2.SignatureStatus.Signed
+                       : FubuSaml2.SignatureStatus.InvalidSignature;
+
+            response.Certificate = signedXml.KeyInfo.OfType<KeyInfoX509Data>()
+                                            .SelectMany(x => x.Certificates.OfType<X509Certificate2>());
+
+            /*
+            
+            var signatureElement = (XmlElement)xmlDoc.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#")[0];
+            var signedXml = new SignedXml(xmlDoc);
+            signedXml.LoadXml(signatureElement);
+            var isValid = signedXml.CheckSignature();
+
+            if (!isValid)
+            {
+                throw new Exception("Saml payload does not contain a valid signature");
+            }
+             */
+        }
+
         public Uri readIssuer()
         {
             return findText("Issuer", AssertionXsd).ToUri();
@@ -49,9 +85,10 @@ namespace FubuSaml2
                 Issuer = readIssuer(),
                 Status = readStatusCode(),
                 Conditions = new ConditionGroup(find("Conditions", AssertionXsd)),
-                Subject = new Subject(find("Subject", AssertionXsd))
+                Subject = new Subject(find("Subject", AssertionXsd)),
             };
 
+            readSignaturesAndCertificates(response);
             readAttributes(response);
 
             return response;

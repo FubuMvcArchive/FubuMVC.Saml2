@@ -18,7 +18,8 @@ namespace FubuSaml2
 
         public SamlResponseStatus Status { get; set; }
         public Uri Issuer { get; set; }
-        public X509Certificate2 Signature { get; set; }
+        public IEnumerable<X509Certificate2> Certificate { get; set; }
+        public SignatureStatus Signed { get; set; }
 
         public Subject Subject { get; set; }
 
@@ -48,5 +49,12 @@ namespace FubuSaml2
                 _attributes.Add(key, value);
             }
         }
+    }
+
+    public enum SignatureStatus
+    {
+        Signed,
+        NotSigned,
+        InvalidSignature
     }
 }

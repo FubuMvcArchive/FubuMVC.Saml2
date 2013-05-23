@@ -27,7 +27,7 @@
       <dsig:X509IssuerName>CN=VeriSign Class 3 Secure Server CA - G3,OU=Terms of use at https://www.verisign.com/rpa (c)10,OU=VeriSign Trust Network,O=VeriSign\, Inc.,C=US</dsig:X509IssuerName>
       <dsig:X509SerialNumber>85677336327248017187862671695081172531</dsig:X509SerialNumber>
      </dsig:X509IssuerSerial>
-     <dsig:X509SubjectName>CN=samlsso-xqa.fidelity.com,OU=PWI OPS,O=Fidelity Investments,L=Boston,ST=Massachusetts,C=US</dsig:X509SubjectName>
+     <dsig:X509SubjectName>CN=samlsso-xqa.company.com,OU=PWI OPS,O=Company,L=Boston,ST=Massachusetts,C=US</dsig:X509SubjectName>
     </dsig:X509Data>
    </dsig:KeyInfo>
   </dsig:Signature>
