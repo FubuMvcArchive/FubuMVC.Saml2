@@ -48,6 +48,12 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AudienceRestriction.cs" />
+    <Compile Include="Certificates\BasicSamlCertificateIssuerRepository.cs" />
+    <Compile Include="Certificates\CertificateResult.cs" />
+    <Compile Include="Certificates\CertificateIssuerMatcher.cs" />
+    <Compile Include="Certificates\ICertificateIssuerMatcher.cs" />
+    <Compile Include="Certificates\ISamlCertificateIssuerRepository.cs" />
+    <Compile Include="Certificates\SamlCertificateIssuer.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="ConditionGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
