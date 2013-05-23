@@ -5,6 +5,7 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using System.Linq;
 using FubuCore.Conversion;
+using FubuSaml2.Certificates;
 
 namespace FubuSaml2
 {
@@ -56,21 +57,9 @@ namespace FubuSaml2
                        ? FubuSaml2.SignatureStatus.Signed
                        : FubuSaml2.SignatureStatus.InvalidSignature;
 
-            response.Certificate = signedXml.KeyInfo.OfType<KeyInfoX509Data>()
-                                            .SelectMany(x => x.Certificates.OfType<X509Certificate2>());
+            response.Certificates = signedXml.KeyInfo.OfType<KeyInfoX509Data>()
+                                            .SelectMany(x => x.Certificates.OfType<X509Certificate2>().Select(cert => new X509CertificateWrapper(cert)));
 
-            /*
-            
-            var signatureElement = (XmlElement)xmlDoc.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#")[0];
-            var signedXml = new SignedXml(xmlDoc);
-            signedXml.LoadXml(signatureElement);
-            var isValid = signedXml.CheckSignature();
-
-            if (!isValid)
-            {
-                throw new Exception("Saml payload does not contain a valid signature");
-            }
-             */
         }
 
         public Uri readIssuer()

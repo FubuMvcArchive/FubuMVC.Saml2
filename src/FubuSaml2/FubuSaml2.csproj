@@ -52,6 +52,7 @@
     <Compile Include="Certificates\CertificateResult.cs" />
     <Compile Include="Certificates\CertificateIssuerMatcher.cs" />
     <Compile Include="Certificates\ICertificateIssuerMatcher.cs" />
+    <Compile Include="Certificates\ICertificateValidator.cs" />
     <Compile Include="Certificates\ISamlCertificateIssuerRepository.cs" />
     <Compile Include="Certificates\SamlCertificateIssuer.cs" />
     <Compile Include="Classes.cs" />

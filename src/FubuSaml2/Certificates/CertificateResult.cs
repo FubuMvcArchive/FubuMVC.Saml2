@@ -2,7 +2,7 @@
 {
     public enum CertificateResult
     {
-        CannotFindHandler,
+        CannotMatchIssuer,
         CertificateIsNotValid,
         CertificateDoesNotMatchIssuer,
         Validated

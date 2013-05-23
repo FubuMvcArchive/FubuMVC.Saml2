@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuCore.Util;
+using FubuSaml2.Certificates;
 
 namespace FubuSaml2
 {
@@ -18,7 +18,7 @@ namespace FubuSaml2
 
         public SamlResponseStatus Status { get; set; }
         public Uri Issuer { get; set; }
-        public IEnumerable<X509Certificate2> Certificate { get; set; }
+        public IEnumerable<ICertificate> Certificates { get; set; }
         public SignatureStatus Signed { get; set; }
 
         public Subject Subject { get; set; }
@@ -27,12 +27,12 @@ namespace FubuSaml2
         public ConditionGroup Conditions { get; set; }
 
         public IKeyValues<object> Attributes { get; private set; }
-    
+
         public void AddAttribute(string key, string value)
         {
             if (_attributes.ContainsKey(key))
             {
-                var existing = _attributes[key];
+                object existing = _attributes[key];
                 if (existing is string)
                 {
                     var list = new List<string> {existing as string, value};

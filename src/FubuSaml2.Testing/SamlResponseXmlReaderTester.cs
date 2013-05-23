@@ -90,7 +90,7 @@ namespace FubuSaml2.Testing
         [Test]
         public void can_read_the_certificates()
         {
-            theResponse.Certificate.Any().ShouldBeTrue();
+            theResponse.Certificates.Any().ShouldBeTrue();
         }
 
         [Test, Ignore("CANNOT USE THIS UNTIL WE GET FAKE DATA")]
