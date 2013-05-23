@@ -52,6 +52,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlName.cs" />
     <Compile Include="SamlNameType.cs" />
+    <Compile Include="SamlResponse.cs" />
+    <Compile Include="SamlResponseStatus.cs" />
     <Compile Include="SamlResponseXmlReader.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="SubjectConfirmation.cs" />

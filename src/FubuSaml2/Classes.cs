@@ -1,32 +1,12 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
+using FubuCore.Binding.Values;
 
 namespace FubuSaml2
 {
-    public enum SamlResponseStatus
-    {
-        Success,
-        Failure
-    }
-
-    public class SamlResponse
-    {
-        public SamlResponseStatus Status { get; set; }
-        public Uri Issuer { get; set; }
-        public X509Certificate2 Signature { get; set; }
-
-        public Subject Subject { get; set; }
-
-        // valid if no conditions
-        public ConditionGroup Conditions { get; set; }
-    }
-
-
-    // TODO -- one time use
-    // TODO -- ProxyRestriction
     public interface ICondition
     {
-        
+        // TODO -- one time use
+        // TODO -- ProxyRestriction
     }
 
     public class AuthenticationStatement

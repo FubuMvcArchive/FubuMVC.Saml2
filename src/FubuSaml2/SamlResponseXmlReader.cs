@@ -47,24 +47,36 @@ namespace FubuSaml2
             var response = new SamlResponse
             {
                 Issuer = readIssuer(),
-                Status = readStatusCode().ToEnumValue<SamlResponseStatus>(),
-                Conditions = readConditions(),
+                Status = readStatusCode(),
+                Conditions = new ConditionGroup(find("Conditions", AssertionXsd)),
                 Subject = new Subject(find("Subject", AssertionXsd))
             };
+
+            readAttributes(response);
 
             return response;
         }
 
-        private ConditionGroup readConditions()
+        // TODO -- test payload w/o attributes
+        private void readAttributes(SamlResponse response)
         {
-            var element = find("Conditions", AssertionXsd);
-            return new ConditionGroup(element);
+            var attributes = find("AttributeStatement", AssertionXsd);
+            if (attributes == null) return;
+
+            foreach (XmlElement attElement in attributes.GetElementsByTagName("Attribute", AssertionXsd))
+            {
+                var key = attElement.GetAttribute("Name");
+                foreach (XmlElement valueElement in attElement.GetElementsByTagName("AttributeValue", AssertionXsd))
+                {
+                    response.AddAttribute(key, valueElement.InnerText);
+                }
+            }
         }
 
 
-        private string readStatusCode()
+        private SamlResponseStatus readStatusCode()
         {
-            return find("StatusCode", ProtocolXsd).GetAttribute("Value").Split(':').Last();
+            return find("StatusCode", ProtocolXsd).GetAttribute("Value").Split(':').Last().ToEnumValue<SamlResponseStatus>();
         }
     }
 

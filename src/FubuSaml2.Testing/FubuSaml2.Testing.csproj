@@ -69,6 +69,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlResponseXmlReaderTester.cs" />
   </ItemGroup>
   <ItemGroup>

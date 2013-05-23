@@ -79,5 +79,12 @@ namespace FubuSaml2.Testing
             data.Recipient.ShouldEqual("https://qa2.online.com/qa2/sso/saml".ToUri());
 
         }
+
+        [Test]
+        public void has_the_attributes()
+        {
+            theResponse.Attributes.Get("ClientId").ShouldEqual("000012345");
+            theResponse.Attributes.Get("CustomerId").ShouldEqual("001010111");
+        }
     }
 }
