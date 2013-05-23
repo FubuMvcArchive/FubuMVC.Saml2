@@ -3,8 +3,7 @@
     public enum CertificateResult
     {
         CannotMatchIssuer,
-        CertificateIsNotValid,
-        CertificateDoesNotMatchIssuer,
+        NoValidCertificates,
         Validated
     }
 }

@@ -4,6 +4,7 @@ using FubuTestingSupport;
 using NUnit.Framework;
 using Rhino.Mocks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FubuSaml2.Testing.Certificates    
 {
@@ -92,6 +93,49 @@ namespace FubuSaml2.Testing.Certificates
 
             ClassUnderTest.MatchesIssuer(response)
                 .ShouldBeFalse();
+        }
+
+        [Test]
+        public void returns_CannotMatchIssuer_if_the_cert_does_not_match_the_issuers_we_are_aware_of()
+        {
+            Services.PartialMockTheClassUnderTest();
+
+            var response = new SamlResponse();
+
+            ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(false);
+
+            ClassUnderTest.Validate(response)
+                          .ShouldEqual(CertificateResult.CannotMatchIssuer);
+        }
+
+        [Test]
+        public void return_certificate_is_not_valid_if_all_of_them_fail()
+        {
+            var response = new SamlResponse();
+            var certs = Services.CreateMockArrayFor<ICertificate>(3);
+            certs.Each(x => x.Stub(o => o.IsVerified).Return(false));
+            response.Certificates = certs;
+
+            Services.PartialMockTheClassUnderTest();
+            ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(true);
+
+            ClassUnderTest.Validate(response)
+                          .ShouldEqual(CertificateResult.NoValidCertificates);
+        }
+
+        [Test]
+        public void return_verified_if_any_certificate_matches_and_is_verified()
+        {
+            var response = new SamlResponse();
+            var certs = Services.CreateMockArrayFor<ICertificate>(3);
+            certs[2].Stub(x => x.IsVerified).Return(true);
+            response.Certificates = certs;
+
+            Services.PartialMockTheClassUnderTest();
+            ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(true);
+
+            ClassUnderTest.Validate(response)
+                          .ShouldEqual(CertificateResult.Validated);
         }
     }
 }
