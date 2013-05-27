@@ -69,6 +69,9 @@ namespace FubuSaml2.Xml
         {
             var response = new SamlResponse
             {
+                Id = _document.DocumentElement.GetAttribute("ID"),
+                Destination = _document.DocumentElement.GetAttribute("Destination").ToUri(),
+                IssueInstant = _document.DocumentElement.ReadAttribute<DateTimeOffset>("IssueInstant"),
                 Issuer = ReadIssuer(),
                 Status = readStatusCode(),
                 Conditions = new ConditionGroup(find("Conditions", AssertionXsd)),

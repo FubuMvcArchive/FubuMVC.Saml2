@@ -6,7 +6,7 @@ using FubuTestingSupport;
 using NUnit.Framework;
 using System.Linq;
 
-namespace FubuSaml2.Testing
+namespace FubuSaml2.Testing.Xml
 {
     [TestFixture]
     public class SamlResponseXmlReaderTester
@@ -21,6 +21,24 @@ namespace FubuSaml2.Testing
             theReader = new SamlResponseXmlReader(xml);
 
             theResponse = theReader.Read();
+        }
+
+        [Test]
+        public void reads_the_destination()
+        {
+            theResponse.Destination.ShouldEqual("https://qa2.online.com/qa2/sso/saml".ToUri());
+        }
+
+        [Test]
+        public void reads_the_id()
+        {
+            theResponse.Id.ShouldEqual("A5092bc640a235880200023f80002aa33");
+        }
+
+        [Test]
+        public void reads_the_issue_instant()
+        {
+            theResponse.IssueInstant.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-01T18:16:04Z"));
         }
 
         [Test]

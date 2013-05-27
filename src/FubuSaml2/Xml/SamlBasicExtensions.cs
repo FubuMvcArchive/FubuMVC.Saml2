@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using FubuCore.Conversion;
+using FubuCore;
 
 namespace FubuSaml2.Xml
 {
@@ -42,6 +43,8 @@ namespace FubuSaml2.Xml
 
         public static Uri ToUri(this string uri)
         {
+            if (uri.IsEmpty()) return null;
+
             return new Uri(uri);
         }
 
