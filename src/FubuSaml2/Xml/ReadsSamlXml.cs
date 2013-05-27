@@ -17,7 +17,7 @@
         protected const string Attribute = "Attribute";
         protected const string Signature = "Signature";
         protected const string Issuer = "Issuer";
-        protected const string Conditions = "Conditions";
+        protected const string ConditionsElem = "Conditions";
         protected const string Subject = "Subject";
         protected const string NameID = "NameID";
         protected const string SubjectConfirmation = "SubjectConfirmation";

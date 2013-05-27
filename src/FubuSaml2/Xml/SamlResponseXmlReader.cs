@@ -70,7 +70,7 @@ namespace FubuSaml2.Xml
                 IssueInstant = _root.ReadAttribute<DateTimeOffset>(IssueInstant),
                 Issuer = ReadIssuer(),
                 Status = readStatusCode(),
-                Conditions = new ConditionGroup(find(Conditions, AssertionXsd)),
+                Conditions = new ConditionGroup(find(ConditionsElem, AssertionXsd)),
                 Subject = new Subject(find(Subject, AssertionXsd)),
             };
 
