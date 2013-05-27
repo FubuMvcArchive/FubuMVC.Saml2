@@ -118,5 +118,14 @@ namespace FubuSaml2.Testing.Xml
         {
             theResponse.Signed.ShouldEqual(SignatureStatus.Signed);
         }
+
+        [Test]
+        public void reads_the_basic_authentication_properties()
+        {
+            theResponse.Authentication.Instant.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-01T18:15:47Z"));
+            theResponse.Authentication.SessionIndex.ShouldEqual("21171a497ffc16b87b8179afd5f9b69fc3f8cd8c");
+            theResponse.Authentication.SessionNotOnOrAfter.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-02T04:15:47Z"));
+
+        }
     }
 }

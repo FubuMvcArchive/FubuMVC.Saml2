@@ -30,5 +30,10 @@
         protected const string AudienceRestriction = "AudienceRestriction";
         protected const string Audience = "Audience";
         protected const string FormatAtt = "Format";
+
+        protected const string AuthnStatement = "AuthnStatement";
+        protected const string AuthnInstant = "AuthnInstant";
+        protected const string SessionIndexAtt = "SessionIndex";
+        protected const string SessionNotOnOrAfterAtt = "SessionNotOnOrAfter";
     }
 }

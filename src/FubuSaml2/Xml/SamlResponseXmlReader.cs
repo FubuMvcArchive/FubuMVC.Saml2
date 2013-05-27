@@ -72,6 +72,7 @@ namespace FubuSaml2.Xml
                 Status = readStatusCode(),
                 Conditions = new ConditionGroup(find(ConditionsElem, AssertionXsd)),
                 Subject = new Subject(find(Subject, AssertionXsd)),
+                Authentication = new AuthenticationStatement(_document)
             };
 
             readSignaturesAndCertificates(response);

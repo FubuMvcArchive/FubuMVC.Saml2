@@ -21,6 +21,8 @@ namespace FubuSaml2
         public IEnumerable<ICertificate> Certificates { get; set; }
         public SignatureStatus Signed { get; set; }
 
+        public AuthenticationStatement Authentication { get; set; }
+
         public Uri Destination { get; set; }
         public string Id { get; set; }
         public DateTimeOffset IssueInstant { get; set; }
