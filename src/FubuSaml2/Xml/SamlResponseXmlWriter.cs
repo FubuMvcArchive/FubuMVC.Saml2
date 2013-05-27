@@ -45,8 +45,27 @@ namespace FubuSaml2.Xml
             writeAssertion();
             writeSubject();
             writeConditions();
+            writeAuthenticationStatement();
 
             return _document;
+        }
+
+        private void writeAuthenticationStatement()
+        {
+            var authXmlStack = _assertion.Child(AuthnStatement);
+            var statement = _response.Authentication;
+            authXmlStack.Attr(AuthnInstant, statement.Instant);
+            authXmlStack.Attr(SessionIndexAtt, statement.SessionIndex);
+            if (statement.SessionNotOnOrAfter != null)
+            {
+                authXmlStack.Attr(SessionNotOnOrAfterAtt, statement.SessionNotOnOrAfter.Value);
+            }
+
+            authXmlStack.Push(AuthnContext);
+            if (statement.DeclarationReference != null)
+            {
+                authXmlStack.Add(AuthnContextDeclRef).Text(statement.DeclarationReference.ToString());
+            }
         }
 
         private void writeConditions()

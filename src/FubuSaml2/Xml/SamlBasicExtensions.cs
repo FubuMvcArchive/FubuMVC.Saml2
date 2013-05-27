@@ -63,6 +63,14 @@ namespace FubuSaml2.Xml
             return element.HasAttribute(attribute) ? converter.FromString<T>(element.GetAttribute(attribute)) : default(T);
         }
 
+        public static T ReadChildText<T>(this XmlElement element, string child)
+        {
+            var childElement = element.FindChild(child);
+            if (childElement == null) return default(T);
+
+            return converter.FromString<T>(childElement.InnerText);
+        }
+
         public static XmlElement Attr(this XmlElement element, string name, string value)
         {
             element.SetAttribute(name, value);

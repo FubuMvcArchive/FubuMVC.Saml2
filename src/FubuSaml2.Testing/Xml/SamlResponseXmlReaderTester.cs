@@ -127,5 +127,12 @@ namespace FubuSaml2.Testing.Xml
             theResponse.Authentication.SessionNotOnOrAfter.ShouldEqual(XmlConvert.ToDateTimeOffset("2012-11-02T04:15:47Z"));
 
         }
+
+        [Test]
+        public void reads_the_authentication_context()
+        {
+            theResponse.Authentication.DeclarationReference
+                       .ShouldEqual("urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport".ToUri());
+        }
     }
 }

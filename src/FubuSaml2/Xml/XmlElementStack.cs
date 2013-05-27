@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
+using FubuCore;
 
 namespace FubuSaml2.Xml
 {
@@ -67,8 +68,10 @@ namespace FubuSaml2.Xml
 
         public XmlElementStack Attr(string name, string value)
         {
-            Current.Attr(name, value);
-
+            if (value.IsNotEmpty())
+            {
+                Current.Attr(name, value);
+            }
             return this;
         }
 
@@ -81,7 +84,10 @@ namespace FubuSaml2.Xml
 
         public XmlElementStack Attr(string name, Uri value)
         {
-            Current.Attr(name, value.ToString());
+            if (value != null)
+            {
+                Current.Attr(name, value.ToString());
+            }
 
             return this;
         }

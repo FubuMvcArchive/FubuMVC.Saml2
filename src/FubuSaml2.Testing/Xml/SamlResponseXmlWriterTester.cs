@@ -130,5 +130,20 @@ namespace FubuSaml2.Testing.Xml
 
             secondAudiences.ShouldHaveTheSameElementsAs(originalAudiences);
         }
+
+        [Test]
+        public void writes_the_authentication_context_basic_properties()
+        {
+            theSecondResponse.Authentication.Instant.ShouldEqual(theOriginalResponse.Authentication.Instant);
+            theSecondResponse.Authentication.SessionIndex.ShouldEqual(theOriginalResponse.Authentication.SessionIndex);
+            theSecondResponse.Authentication.SessionNotOnOrAfter.ShouldEqual(theOriginalResponse.Authentication.SessionNotOnOrAfter);
+        }
+
+        [Test]
+        public void writes_the_authentication_context_declaration_reference()
+        {
+            theSecondResponse.Authentication.DeclarationReference
+                             .ShouldEqual(theOriginalResponse.Authentication.DeclarationReference);
+        }
     }
 }

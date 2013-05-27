@@ -35,5 +35,7 @@
         protected const string AuthnInstant = "AuthnInstant";
         protected const string SessionIndexAtt = "SessionIndex";
         protected const string SessionNotOnOrAfterAtt = "SessionNotOnOrAfter";
+        protected const string AuthnContext = "AuthnContext";
+        protected const string AuthnContextDeclRef = "AuthnContextDeclRef";
     }
 }
