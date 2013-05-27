@@ -69,6 +69,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Certificates\BasicSamlCertificateIssuerRepositoryTester.cs" />
+    <Compile Include="Certificates\CertificateLoaderTester.cs" />
     <Compile Include="Certificates\CertificateValidatorTester.cs" />
     <Compile Include="Certificates\SignatureCertStrategyTester.cs" />
     <Compile Include="ObjectMother.cs" />

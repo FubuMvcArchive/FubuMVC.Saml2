@@ -49,11 +49,13 @@
     </Compile>
     <Compile Include="AudienceRestriction.cs" />
     <Compile Include="Certificates\BasicSamlCertificateIssuerRepository.cs" />
+    <Compile Include="Certificates\CertificateLoader.cs" />
     <Compile Include="Certificates\CertificateResult.cs" />
     <Compile Include="Certificates\CertificateIssuerMatcher.cs" />
     <Compile Include="Certificates\CertificateValidator.cs" />
     <Compile Include="Certificates\ICertificate.cs" />
     <Compile Include="Certificates\ICertificateIssuerMatcher.cs" />
+    <Compile Include="Certificates\ICertificateLoader.cs" />
     <Compile Include="Certificates\ICertificateValidator.cs" />
     <Compile Include="Certificates\InMemoryCertificate.cs" />
     <Compile Include="Certificates\ISamlCertificateIssuerRepository.cs" />
