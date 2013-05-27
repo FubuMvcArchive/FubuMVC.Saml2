@@ -11,9 +11,9 @@ namespace FubuSaml2
 {
     public class ReadsSamlXml
     {
-        public static readonly string AssertionXsd = "urn:oasis:names:tc:SAML:2.0:assertion";
-        public static readonly string ProtocolXsd = "urn:oasis:names:tc:SAML:2.0:protocol";
-
+        public const string AssertionXsd = "urn:oasis:names:tc:SAML:2.0:assertion";
+        public const string ProtocolXsd = "urn:oasis:names:tc:SAML:2.0:protocol";
+        public const string EncryptedXsd = "http://www.w3.org/2001/04/xmlenc#";
     }
 
     public class SamlResponseXmlReader : ReadsSamlXml
@@ -62,7 +62,7 @@ namespace FubuSaml2
 
         }
 
-        public Uri readIssuer()
+        public Uri ReadIssuer()
         {
             return findText("Issuer", AssertionXsd).ToUri();
         }
@@ -71,7 +71,7 @@ namespace FubuSaml2
         {
             var response = new SamlResponse
             {
-                Issuer = readIssuer(),
+                Issuer = ReadIssuer(),
                 Status = readStatusCode(),
                 Conditions = new ConditionGroup(find("Conditions", AssertionXsd)),
                 Subject = new Subject(find("Subject", AssertionXsd)),
@@ -118,10 +118,27 @@ namespace FubuSaml2
             }
         }
 
-        public static XmlElement FindChild(this XmlElement element, string name, string xsd)
+        public static XmlElement FindChild(this XmlElement element, string name, string xsd = SamlResponseXmlReader.AssertionXsd)
         {
             var children = element.GetElementsByTagName(name, xsd);
             return (XmlElement) (children.Count > 0 ? children[0] : null);
+        }
+
+        public static XmlElement FindChild(this XmlDocument document, string name, string xsd = SamlResponseXmlReader.AssertionXsd)
+        {
+            var element = document.DocumentElement;
+            var children = element.GetElementsByTagName(name, xsd);
+            return (XmlElement)(children.Count > 0 ? children[0] : null);
+        }
+
+        public static XmlElement EncryptedChild(this XmlDocument document, string name)
+        {
+            return document.FindChild(name, SamlResponseXmlReader.EncryptedXsd);
+        }
+
+        public static XmlElement EncryptedChild(this XmlElement element, string name)
+        {
+            return element.FindChild(name, SamlResponseXmlReader.EncryptedXsd);
         }
 
         public static Uri ToUri(this string uri)

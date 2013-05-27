@@ -61,6 +61,7 @@
     <Compile Include="Certificates\X509CertificateWrapper.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="ConditionGroup.cs" />
+    <Compile Include="Encryption\EncryptionClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlName.cs" />
     <Compile Include="SamlNameType.cs" />
