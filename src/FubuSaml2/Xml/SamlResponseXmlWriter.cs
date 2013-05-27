@@ -80,7 +80,8 @@ namespace FubuSaml2.Xml
             //                              .Attr("Format", "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent")
             //                              .Attr("NameQualifier", _response.Issuer);
             subject.Add(subjectName.Type.ToString())
-                      .Text(subjectName.Value);
+                      .Text(subjectName.Value)
+                      .Attr(FormatAtt, subjectName.Format.Uri);
 
             _response.Subject.Confirmations.Each(confirmation => {
                 subject.Push(SubjectConfirmation).Attr(MethodAtt, confirmation.Method);

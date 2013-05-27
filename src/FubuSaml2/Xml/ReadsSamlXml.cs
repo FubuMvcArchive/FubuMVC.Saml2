@@ -29,5 +29,6 @@
         protected const string NotBeforeAtt = "NotBefore";
         protected const string AudienceRestriction = "AudienceRestriction";
         protected const string Audience = "Audience";
+        protected const string FormatAtt = "Format";
     }
 }

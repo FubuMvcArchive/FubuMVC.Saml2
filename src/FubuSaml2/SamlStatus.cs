@@ -63,5 +63,10 @@ The responding provider does not recognize the principal specified or implied by
 urn:oasis:names:tc:SAML:2.0:status:UnsupportedBinding
 The SAML responder cannot properly fulfill the request using the protocol binding specified in the request.
          */
+
+        public static SamlStatus Get(string text)
+        {
+            return get(text);
+        }
     }
 }

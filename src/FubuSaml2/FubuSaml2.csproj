@@ -64,6 +64,7 @@
     <Compile Include="ConditionGroup.cs" />
     <Compile Include="Encryption\EncryptionClasses.cs" />
     <Compile Include="ICondition.cs" />
+    <Compile Include="NameFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlName.cs" />
     <Compile Include="SamlNameType.cs" />

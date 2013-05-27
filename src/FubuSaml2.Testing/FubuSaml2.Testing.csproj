@@ -74,6 +74,7 @@
     <Compile Include="Certificates\SignatureCertStrategyTester.cs" />
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlNameTester.cs" />
     <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlStatusTester.cs" />
     <Compile Include="Xml\SamlResponseXmlReaderTester.cs" />

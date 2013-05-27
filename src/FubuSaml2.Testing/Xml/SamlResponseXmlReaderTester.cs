@@ -77,7 +77,8 @@ namespace FubuSaml2.Testing.Xml
             theResponse.Subject.Name.ShouldEqual(new SamlName
             {
                 Type = SamlNameType.NameID,
-                Value = "aa50045c6d0a233e7c20003d7d0000aa33"
+                Value = "aa50045c6d0a233e7c20003d7d0000aa33",
+                Format = NameFormat.Persistent
             });
         }
 

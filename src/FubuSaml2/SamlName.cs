@@ -7,6 +7,8 @@ namespace FubuSaml2
     {
         public SamlName()
         {
+            Type = SamlNameType.NameID;
+            Format = NameFormat.Unspecified;
         }
 
         public SamlName(XmlElement element)
@@ -17,22 +19,23 @@ namespace FubuSaml2
 
             // TODO -- add NameQualifier as URI
             // TODO -- add SPNameQualifier as URI
-            // TODO -- add Format - urn:oasis:names:tc:SAML:2.0:nameid-format:persistent  <-- this matters!
 
             var name = element.FindChild(NameID, AssertionXsd);
             if (name != null)
             {
                 Type = SamlNameType.NameID;
                 Value = name.InnerText;
+                Format = NameFormat.Get(name.GetAttribute(FormatAtt)) ?? NameFormat.Unspecified;
             }
         }
 
+        public NameFormat Format { get; set; }
         public SamlNameType Type { get; set; }
         public string Value { get; set; }
 
         protected bool Equals(SamlName other)
         {
-            return Type == other.Type && string.Equals(Value, other.Value);
+            return Equals(Format, other.Format) && Type == other.Type && string.Equals(Value, other.Value);
         }
 
         public override bool Equals(object obj)
@@ -47,13 +50,16 @@ namespace FubuSaml2
         {
             unchecked
             {
-                return ((int) Type*397) ^ (Value != null ? Value.GetHashCode() : 0);
+                var hashCode = (Format != null ? Format.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (int) Type;
+                hashCode = (hashCode*397) ^ (Value != null ? Value.GetHashCode() : 0);
+                return hashCode;
             }
         }
 
         public override string ToString()
         {
-            return string.Format("Type: {0}, Value: {1}", Type, Value);
+            return string.Format("Format: {0}, Type: {1}, Value: {2}", Format, Type, Value);
         }
     }
 }

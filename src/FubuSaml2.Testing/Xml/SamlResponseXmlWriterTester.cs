@@ -86,6 +86,13 @@ namespace FubuSaml2.Testing.Xml
         }
 
         [Test]
+        public void writes_the_subject_format()
+        {
+            theSecondResponse.Subject.Name.Format
+                             .ShouldEqual(theOriginalResponse.Subject.Name.Format);
+        }
+
+        [Test]
         public void writes_the_subject_confirmation_methods()
         {
             theSecondResponse.Subject.Confirmations.Select(x => x.Method)

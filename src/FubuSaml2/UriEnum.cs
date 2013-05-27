@@ -35,7 +35,7 @@ namespace FubuSaml2
             get { return _description; }
         }
 
-        public static T Get(string uriString)
+        protected static T get(string uriString)
         {
             return _all.FirstOrDefault(x => x.Uri == uriString.ToUri());
         }
