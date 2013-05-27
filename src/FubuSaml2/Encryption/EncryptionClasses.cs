@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using FubuCore;
+using FubuSaml2.Xml;
 
 namespace FubuSaml2.Encryption
 {

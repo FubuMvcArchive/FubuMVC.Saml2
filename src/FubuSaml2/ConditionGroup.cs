@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
+using FubuSaml2.Xml;
 
 namespace FubuSaml2
 {

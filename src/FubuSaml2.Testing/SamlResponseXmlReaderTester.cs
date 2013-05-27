@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using FubuCore;
+using FubuSaml2.Xml;
 using FubuTestingSupport;
 using NUnit.Framework;
 using System.Linq;
