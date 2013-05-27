@@ -19,7 +19,7 @@ namespace FubuSaml2
 
         private IEnumerable<SubjectConfirmation> buildConfirmations(XmlElement element)
         {
-            foreach (XmlElement confirmationElement in element.GetElementsByTagName("SubjectConfirmation", AssertionXsd))
+            foreach (XmlElement confirmationElement in element.GetElementsByTagName(SubjectConfirmation, AssertionXsd))
             {
                 yield return new SubjectConfirmation(confirmationElement);
             }

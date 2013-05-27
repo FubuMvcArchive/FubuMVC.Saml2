@@ -75,7 +75,9 @@
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlResponseTester.cs" />
+    <Compile Include="SamlStatusTester.cs" />
     <Compile Include="Xml\SamlResponseXmlReaderTester.cs" />
+    <Compile Include="Xml\SamlResponseXmlWriterTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FubuSaml2\FubuSaml2.csproj">

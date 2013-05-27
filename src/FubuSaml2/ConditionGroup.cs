@@ -15,8 +15,8 @@ namespace FubuSaml2
 
         public ConditionGroup(XmlElement element)
         {
-            NotBefore = element.ReadAttribute<DateTimeOffset>("NotBefore");
-            NotOnOrAfter = element.ReadAttribute<DateTimeOffset>("NotOnOrAfter");
+            NotBefore = element.ReadAttribute<DateTimeOffset>(NotBeforeAtt);
+            NotOnOrAfter = element.ReadAttribute<DateTimeOffset>(NotOnOrAfterAtt);
 
             // TODO -- couple other kinds of conditions here
             Conditions = readAudiences(element);
@@ -24,15 +24,16 @@ namespace FubuSaml2
 
         private AudienceRestriction[] readAudiences(XmlElement conditions)
         {
-            return conditions.Children("AudienceRestriction", AssertionXsd)
-                             .Select(elem =>
-                             {
-                                 var audiences = SamlBasicExtensions.Children(elem, "Audience", AssertionXsd).Select(x => SamlBasicExtensions.ToUri(x.InnerText)).ToArray();
-                                 return new AudienceRestriction
-                                 {
-                                     Audiences = audiences
-                                 };
-                             }).ToArray();
+            return conditions
+                .Children(AudienceRestriction, AssertionXsd)
+                .Select(elem =>
+                {
+                    var audiences = elem.Children(Audience, AssertionXsd).Select(x => x.InnerText.ToUri()).ToArray();
+                    return new AudienceRestriction
+                    {
+                        Audiences = audiences
+                    };
+                }).ToArray();
         }
 
         public DateTimeOffset NotBefore { get; set; }

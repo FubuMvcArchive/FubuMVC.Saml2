@@ -53,9 +53,40 @@ namespace FubuSaml2.Xml
             return (T) Enum.Parse(typeof (T), text);
         }
 
+        public static SamlStatus ToSamlStatus(this string text)
+        {
+            return SamlStatus.ToSamlStatus(text);
+        }
+
         public static T ReadAttribute<T>(this XmlElement element, string attribute) 
         {
             return element.HasAttribute(attribute) ? converter.FromString<T>(element.GetAttribute(attribute)) : default(T);
+        }
+
+        public static XmlElement Attr(this XmlElement element, string name, string value)
+        {
+            element.SetAttribute(name, value);
+            return element;
+        }
+
+        public static XmlElement Attr(this XmlElement element, string name, Uri value)
+        {
+            element.SetAttribute(name, value.ToString());
+            return element;
+        }
+
+        public static XmlElement Attr(this XmlElement element, string name, DateTimeOffset? value)
+        {
+            if (value == null) return element;
+
+            element.SetAttribute(name, XmlConvert.ToString(value.Value));
+            return element;
+        }
+
+        public static XmlElement Text(this XmlElement element, string text)
+        {
+            element.InnerText = text;
+            return element;
         }
     }
 }

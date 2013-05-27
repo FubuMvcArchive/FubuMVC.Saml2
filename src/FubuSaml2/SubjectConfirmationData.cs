@@ -12,8 +12,8 @@ namespace FubuSaml2
 
         public SubjectConfirmationData(XmlElement element)
         {
-            NotOnOrAfter = element.ReadAttribute<DateTimeOffset>("NotOnOrAfter");
-            Recipient = element.ReadAttribute<Uri>("Recipient");
+            NotOnOrAfter = element.ReadAttribute<DateTimeOffset>(NotOnOrAfterAtt);
+            Recipient = element.ReadAttribute<Uri>(RecipientAtt);
         }
 
         //public DateTimeOffset? NotBefore { get; set; }
@@ -25,5 +25,6 @@ namespace FubuSaml2
         // Change this to IValueSource I think.  You could have custom attributes
         // or custom elements
         //public IDictionary<string, string> Attributes { get; set; }
+
     }
 }

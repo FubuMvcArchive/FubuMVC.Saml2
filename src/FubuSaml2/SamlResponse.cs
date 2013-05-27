@@ -16,7 +16,7 @@ namespace FubuSaml2
             Attributes = new DictionaryKeyValues<object>(_attributes);
         }
 
-        public SamlResponseStatus Status { get; set; }
+        public SamlStatus Status { get; set; }
         public Uri Issuer { get; set; }
         public IEnumerable<ICertificate> Certificates { get; set; }
         public SignatureStatus Signed { get; set; }

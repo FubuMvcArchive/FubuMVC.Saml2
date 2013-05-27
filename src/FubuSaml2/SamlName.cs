@@ -15,7 +15,11 @@ namespace FubuSaml2
             // TODO -- read EncryptedID
 
 
-            var name = element.FindChild("NameID", AssertionXsd);
+            // TODO -- add NameQualifier as URI
+            // TODO -- add SPNameQualifier as URI
+            // TODO -- add Format - urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+
+            var name = element.FindChild(NameID, AssertionXsd);
             if (name != null)
             {
                 Type = SamlNameType.NameID;

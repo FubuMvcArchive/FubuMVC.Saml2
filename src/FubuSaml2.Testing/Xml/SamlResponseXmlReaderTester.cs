@@ -44,13 +44,13 @@ namespace FubuSaml2.Testing.Xml
         [Test]
         public void read_the_issuer()
         {
-            theResponse.Issuer.ShouldEqual(new Uri("urn:idp:fidelity:nbpartgenoutbds20:uat"));
+            theResponse.Issuer.ShouldEqual(new Uri("urn:idp:fakecompany:nbpartgenoutbds20:uat"));
         }
 
         [Test]
         public void read_the_status_of_the_response_if_it_is_success()
         {
-            theResponse.Status.ShouldEqual(SamlResponseStatus.Success);
+            theResponse.Status.ShouldEqual(SamlStatus.Success);
         }
 
         [Test]
