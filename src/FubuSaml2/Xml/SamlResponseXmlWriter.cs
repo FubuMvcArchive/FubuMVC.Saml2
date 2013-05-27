@@ -46,8 +46,37 @@ namespace FubuSaml2.Xml
             writeSubject();
             writeConditions();
             writeAuthenticationStatement();
+            writeAttributes();
 
             return _document;
+        }
+
+        private void writeAttributes()
+        {
+            var root = start(AttributeStatement);
+            var keys = _response.Attributes.GetKeys();
+
+            keys.Each(key => {
+                var attributeElement = root.Child(Attribute)
+                    .Attr(Name, key)
+                    .Attr(NameFormatAtt, "urn:oasis:names:tc:SAML:2.0:attrname-format:basic".ToUri());
+                
+                
+                var value = _response.Attributes.Get(key);
+
+                // TODO -- need to get a UT on this.
+                var enumerable = value as IEnumerable<string>;
+                if (enumerable != null)
+                {
+                    enumerable.Each(x => {
+                        attributeElement.Add(AttributeValue).InnerText = x;
+                    });
+                }
+                else
+                {
+                    attributeElement.Add(AttributeValue).InnerText = value as string;
+                }
+            });
         }
 
         private void writeAuthenticationStatement()

@@ -145,5 +145,15 @@ namespace FubuSaml2.Testing.Xml
             theSecondResponse.Authentication.DeclarationReference
                              .ShouldEqual(theOriginalResponse.Authentication.DeclarationReference);
         }
+
+        [Test]
+        public void writes_the_attributes()
+        {
+            theSecondResponse.Attributes.Get("ClientId")
+                             .ShouldEqual("000012345");
+
+            theSecondResponse.Attributes.Get("CustomerId")
+                             .ShouldEqual("001010111");
+        }
     }
 }
