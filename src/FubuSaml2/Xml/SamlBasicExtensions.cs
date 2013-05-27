@@ -55,7 +55,7 @@ namespace FubuSaml2.Xml
 
         public static SamlStatus ToSamlStatus(this string text)
         {
-            return SamlStatus.ToSamlStatus(text);
+            return SamlStatus.Get(text);
         }
 
         public static T ReadAttribute<T>(this XmlElement element, string attribute) 

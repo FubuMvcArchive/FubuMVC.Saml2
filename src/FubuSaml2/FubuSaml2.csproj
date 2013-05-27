@@ -69,6 +69,7 @@
     <Compile Include="SamlNameType.cs" />
     <Compile Include="SamlResponse.cs" />
     <Compile Include="SamlStatus.cs" />
+    <Compile Include="UriEnum.cs" />
     <Compile Include="Xml\ReadsSamlXml.cs" />
     <Compile Include="Xml\SamlBasicExtensions.cs" />
     <Compile Include="Xml\SamlResponseXmlReader.cs" />

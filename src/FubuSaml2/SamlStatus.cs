@@ -1,46 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using FubuSaml2.Xml;
-using System.Linq;
 
 namespace FubuSaml2
 {
-    public class SamlStatus
+
+
+    public class SamlStatus : UriEnum<SamlStatus>
     {
-        private readonly string _description;
-        private static readonly IList<SamlStatus> _all = new List<SamlStatus>();
 
         public static readonly SamlStatus Success = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Success", "The request succeeded");
         public static readonly SamlStatus RequesterError = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Requester", "The request could not be performed due to an error on the part of the requester.");
         public static readonly SamlStatus ResponderError = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Responder", "The request could not be performed due to an error on the part of the SAML responder or SAML authority.");
         public static readonly SamlStatus VersionMismatch = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:VersionMismatch", "The SAML responder could not process the request because the version of the request message was incorrect.");
 
-
-        private readonly Uri _uri;
-
-
-        private SamlStatus(string uri, string description)
+        private SamlStatus(string uri, string description) : base(uri, description)
         {
-            _description = description;
-            _uri = uri.ToUri();
-
-            _all.Add(this);
-        }
-
-        public string Description
-        {
-            get { return _description; }
-        }
-
-        public Uri Uri
-        {
-            get { return _uri; }
-        }
-
-        public static SamlStatus ToSamlStatus(string uriString)
-        {
-            var uri = uriString.ToUri();
-            return _all.FirstOrDefault(x => x.Uri == uri);
         }
 
         /*

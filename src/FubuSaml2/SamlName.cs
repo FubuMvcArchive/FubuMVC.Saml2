@@ -17,7 +17,7 @@ namespace FubuSaml2
 
             // TODO -- add NameQualifier as URI
             // TODO -- add SPNameQualifier as URI
-            // TODO -- add Format - urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+            // TODO -- add Format - urn:oasis:names:tc:SAML:2.0:nameid-format:persistent  <-- this matters!
 
             var name = element.FindChild(NameID, AssertionXsd);
             if (name != null)
