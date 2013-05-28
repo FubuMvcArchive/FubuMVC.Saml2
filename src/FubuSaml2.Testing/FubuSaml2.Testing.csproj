@@ -72,6 +72,7 @@
     <Compile Include="Certificates\CertificateLoaderTester.cs" />
     <Compile Include="Certificates\CertificateServiceTester.cs" />
     <Compile Include="Certificates\SamlCertificateTester.cs" />
+    <Compile Include="Encryption\AssertionXmlDecryptorTester.cs" />
     <Compile Include="Encryption\BigBangRoundTripWritingReadingAndEncryptionIntegratedTester.cs" />
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
