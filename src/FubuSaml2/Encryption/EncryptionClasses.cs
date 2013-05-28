@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
+using System.Text;
 using System.Xml;
 using FubuCore;
 using FubuSaml2.Certificates;
@@ -22,7 +23,8 @@ namespace FubuSaml2.Encryption
         {
             var xml = new SamlResponseXmlWriter(response).Write();
 
-            return xml.OuterXml;
+            var rawXml = xml.OuterXml;
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(rawXml));
         }
     
     }
@@ -39,7 +41,10 @@ namespace FubuSaml2.Encryption
 
         public SamlResponse Read(string responseText)
         {
-            return new SamlResponseXmlReader(responseText).Read();
+            var bytes = Convert.FromBase64String(responseText);
+            var xml = Encoding.UTF8.GetString(bytes);
+
+            return new SamlResponseXmlReader(xml).Read();
         }
 
         public static void Decrypt(XmlDocument document, X509Certificate2 encryptionCert)
