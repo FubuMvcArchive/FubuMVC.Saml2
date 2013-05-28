@@ -72,6 +72,7 @@
     <Compile Include="Certificates\CertificateLoaderTester.cs" />
     <Compile Include="Certificates\CertificateServiceTester.cs" />
     <Compile Include="Certificates\SamlCertificateTester.cs" />
+    <Compile Include="Encryption\BigBangRoundTripWritingReadingAndEncryptionIntegratedTester.cs" />
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlNameTester.cs" />
@@ -100,9 +101,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Encryption\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

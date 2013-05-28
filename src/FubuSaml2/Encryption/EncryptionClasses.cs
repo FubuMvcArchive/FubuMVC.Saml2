@@ -9,25 +9,37 @@ using FubuSaml2.Xml;
 
 namespace FubuSaml2.Encryption
 {
-    public class XmlEncryptor : ReadsSamlXml
+    public class SamlResponseWriter : ReadsSamlXml
     {
-        public XmlEncryptor(ISamlCertificateRepository certificates)
+        private readonly ICertificateService _certificates;
+
+        public SamlResponseWriter(ICertificateService certificates)
         {
+            _certificates = certificates;
         }
 
+        public string Write(SamlResponse response)
+        {
+            var xml = new SamlResponseXmlWriter(response).Write();
 
+            return xml.OuterXml;
+        }
+    
     }
 
     // TODO -- need some tests around this
-    public class XmlDecryptor : ReadsSamlXml
+    public class SamlResponseReader : ReadsSamlXml
     {
-        public XmlDecryptor()
+        private readonly ICertificateService _certificates;
+
+        public SamlResponseReader(ICertificateService certificates)
         {
+            _certificates = certificates;
         }
 
         public SamlResponse Read(string responseText)
         {
-            throw new NotImplementedException();
+            return new SamlResponseXmlReader(responseText).Read();
         }
 
         public static void Decrypt(XmlDocument document, X509Certificate2 encryptionCert)

@@ -1,0 +1,182 @@
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using FubuSaml2.Certificates;
+using FubuSaml2.Encryption;
+using FubuTestingSupport;
+using NUnit.Framework;
+
+namespace FubuSaml2.Testing.Encryption
+{
+    [TestFixture]
+    public class BigBangRoundTripWritingReadingAndEncryptionIntegratedTester
+    {
+        private X509Certificate2 cert;
+        private SamlResponse samlResponse;
+        private SamlCertificate samlCert;
+        private SamlResponse readResponse;
+
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            samlResponse = ObjectMother.Response();
+            cert = ObjectMother.Certificate2();
+            samlCert = ObjectMother.SamlCertificateMatching(samlResponse.Issuer, new X509CertificateWrapper(cert));
+
+            var certificates = new InMemoryCertificateService(samlCert, cert);
+
+            var xml = new SamlResponseWriter(certificates).Write(samlResponse);
+
+            readResponse = new SamlResponseReader(certificates).Read(xml);
+        }
+
+        [Test]
+        public void can_round_trip_anything()
+        {
+            readResponse.ShouldNotBeNull();
+        }
+
+        /*
+         * TODO's
+         * 1.) Add encoding
+         * 2.) Add encryption
+         * 3.) Add signatures
+         * 4.)
+         * 
+         */
+
+
+        [Test]
+        public void writes_the_issuer()
+        {
+            readResponse.Issuer.ShouldEqual(samlResponse.Issuer);
+        }
+
+        [Test]
+        public void writes_the_status()
+        {
+            readResponse.Status.ShouldEqual(samlResponse.Status);
+        }
+
+        [Test]
+        public void writes_the_Destination()
+        {
+            readResponse.Destination.ShouldEqual(samlResponse.Destination);
+        }
+
+        [Test]
+        public void writes_the_Id()
+        {
+            readResponse.Id.ShouldEqual(samlResponse.Id);
+        }
+
+        [Test]
+        public void writes_the_issue_instant()
+        {
+            readResponse.IssueInstant.ShouldEqual(samlResponse.IssueInstant);
+        }
+
+        [Test]
+        public void writes_the_subject_name()
+        {
+            readResponse.Subject.Name.ShouldEqual(samlResponse.Subject.Name);
+        }
+
+        [Test]
+        public void writes_the_subject_format()
+        {
+            readResponse.Subject.Name.Format
+                             .ShouldEqual(samlResponse.Subject.Name.Format);
+        }
+
+        [Test]
+        public void writes_the_subject_confirmation_methods()
+        {
+            readResponse.Subject.Confirmations.Select(x => x.Method)
+                .ShouldHaveTheSameElementsAs(samlResponse.Subject.Confirmations.Select(x => x.Method));
+
+        }
+
+        [Test]
+        public void writes_the_subject_confirmation_data()
+        {
+            var secondConfirmationData = readResponse.Subject.Confirmations.First().ConfirmationData.First();
+            var originalConfirmationData = samlResponse.Subject.Confirmations.First().ConfirmationData.First();
+
+            secondConfirmationData.NotOnOrAfter.ShouldEqual(originalConfirmationData.NotOnOrAfter);
+            secondConfirmationData.Recipient.ShouldEqual(originalConfirmationData.Recipient);
+        }
+
+        [Test]
+        public void writes_the_condition_group_times()
+        {
+            readResponse.Conditions.NotBefore
+                             .ShouldEqual(samlResponse.Conditions.NotBefore);
+
+            readResponse.Conditions.NotOnOrAfter
+                             .ShouldEqual(samlResponse.Conditions.NotOnOrAfter);
+        }
+
+        [Test]
+        public void writes_the_audiences()
+        {
+            var secondAudiences = readResponse.Conditions.Conditions.OfType<AudienceRestriction>().Select(x => x.Audiences);
+            var originalAudiences =
+                samlResponse.Conditions.Conditions.OfType<AudienceRestriction>().Select(x => x.Audiences);
+
+
+            secondAudiences.ShouldHaveTheSameElementsAs(originalAudiences);
+        }
+
+        [Test]
+        public void writes_the_authentication_context_basic_properties()
+        {
+            readResponse.Authentication.Instant.ShouldEqual(samlResponse.Authentication.Instant);
+            readResponse.Authentication.SessionIndex.ShouldEqual(samlResponse.Authentication.SessionIndex);
+            readResponse.Authentication.SessionNotOnOrAfter.ShouldEqual(samlResponse.Authentication.SessionNotOnOrAfter);
+        }
+
+        [Test]
+        public void writes_the_authentication_context_declaration_reference()
+        {
+            readResponse.Authentication.DeclarationReference
+                             .ShouldEqual(samlResponse.Authentication.DeclarationReference);
+        }
+
+        [Test]
+        public void writes_the_attributes()
+        {
+            readResponse.Attributes.Get("ClientId")
+                             .ShouldEqual("000012345");
+
+            readResponse.Attributes.Get("CustomerId")
+                             .ShouldEqual("001010111");
+        }
+
+
+    }
+
+    public class InMemoryCertificateService : ICertificateService
+    {
+        private readonly SamlCertificate _certificate;
+        private readonly X509Certificate2 _realCertificate;
+
+        public InMemoryCertificateService(SamlCertificate certificate, X509Certificate2 realCertificate)
+        {
+            _certificate = certificate;
+            _realCertificate = realCertificate;
+        }
+
+        public CertificateResult Validate(SamlResponse response)
+        {
+            if (response.Issuer == _certificate.Issuer) return CertificateResult.Validated;
+
+            return CertificateResult.CannotMatchIssuer;
+        }
+
+        public X509Certificate2 LoadCertificate(Uri issuer)
+        {
+            return _certificate.Issuer == issuer ? _realCertificate : null;
+        }
+    }
+}
