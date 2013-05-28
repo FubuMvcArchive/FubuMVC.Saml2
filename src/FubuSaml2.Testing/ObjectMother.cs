@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuSaml2.Certificates;
@@ -16,7 +18,7 @@ namespace FubuSaml2.Testing
 
         public static X509Certificate2 Certificate2()
         {
-            var cert = X509Certificate2.CreateFromCertFile("cert2.cer");
+            var cert = X509Certificate2.CreateFromSignedFile("cert2.pfx");
             return new X509Certificate2(cert);
         }
 

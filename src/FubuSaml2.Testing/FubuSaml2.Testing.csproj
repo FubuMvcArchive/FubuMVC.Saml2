@@ -100,6 +100,10 @@
     <None Include="cert2.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="cert2.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="cert2.pvk" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

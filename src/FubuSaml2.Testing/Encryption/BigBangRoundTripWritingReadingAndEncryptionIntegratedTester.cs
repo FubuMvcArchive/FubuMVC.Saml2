@@ -5,6 +5,7 @@ using FubuSaml2.Certificates;
 using FubuSaml2.Encryption;
 using FubuTestingSupport;
 using NUnit.Framework;
+using StructureMap;
 
 namespace FubuSaml2.Testing.Encryption
 {
@@ -23,9 +24,13 @@ namespace FubuSaml2.Testing.Encryption
             cert = ObjectMother.Certificate2();
             samlCert = ObjectMother.SamlCertificateMatching(samlResponse.Issuer, new X509CertificateWrapper(cert));
 
+            var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+            store.Open(OpenFlags.ReadWrite);
+            store.Add(cert);
+
             var certificates = new InMemoryCertificateService(samlCert, cert);
 
-            var xml = new SamlResponseWriter(certificates).Write(samlResponse);
+            var xml = new SamlResponseWriter(certificates, new SamlResponseXmlSigner()).Write(samlResponse);
 
             readResponse = new SamlResponseReader(certificates).Read(xml);
         }
@@ -36,9 +41,14 @@ namespace FubuSaml2.Testing.Encryption
             readResponse.ShouldNotBeNull();
         }
 
+        [Test]
+        public void the_response_has_a_signature()
+        {
+            readResponse.Signed.ShouldEqual(SignatureStatus.Signed);
+        }
+
         /*
          * TODO's
-         * 1.) Add encoding
          * 2.) Add encryption
          * 3.) Add signatures
          * 4.)

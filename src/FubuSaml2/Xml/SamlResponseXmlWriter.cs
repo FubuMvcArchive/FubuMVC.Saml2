@@ -111,7 +111,7 @@ namespace FubuSaml2.Xml
 
         private void writeAssertion()
         {
-            _assertion = start("Assertion")
+            _assertion = start(AssertionElem)
                 .Attr(ID, _response.Id)
                 .Attr(IssueInstant, _response.IssueInstant);
 

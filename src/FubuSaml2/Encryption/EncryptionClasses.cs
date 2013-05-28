@@ -13,15 +13,20 @@ namespace FubuSaml2.Encryption
     public class SamlResponseWriter : ReadsSamlXml
     {
         private readonly ICertificateService _certificates;
+        private readonly ISamlResponseXmlSigner _xmlSigner;
 
-        public SamlResponseWriter(ICertificateService certificates)
+        public SamlResponseWriter(ICertificateService certificates, ISamlResponseXmlSigner xmlSigner)
         {
             _certificates = certificates;
+            _xmlSigner = xmlSigner;
         }
 
         public string Write(SamlResponse response)
         {
             var xml = new SamlResponseXmlWriter(response).Write();
+            var certificate = _certificates.LoadCertificate(response.Issuer);
+
+            _xmlSigner.ApplySignature(response, certificate, xml);
 
             var rawXml = xml.OuterXml;
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(rawXml));
@@ -110,6 +115,48 @@ namespace FubuSaml2.Encryption
                 default:
                     throw new Exception("Unrecognized asymmetric encryption algorithm URI '{0}'".ToFormat(algorithmUri));
             }
+        }
+    }
+
+    public interface ISamlResponseXmlSigner
+    {
+        void ApplySignature(SamlResponse response ,X509Certificate2 certificate, XmlDocument document);
+    }
+
+    public class SamlResponseXmlSigner : ReadsSamlXml, ISamlResponseXmlSigner
+    {
+        public void ApplySignature(SamlResponse response, X509Certificate2 certificate, XmlDocument document)
+        {
+            var keyInfo = new KeyInfo();
+            keyInfo.AddClause(new KeyInfoX509Data(certificate));
+
+            var signedXml = new SignedXml(document)
+            {
+                SigningKey = certificate.PrivateKey,
+                KeyInfo = keyInfo
+            };
+
+            var reference = new Reference("#" + response.Id);
+            reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
+            signedXml.AddReference(reference);
+            signedXml.ComputeSignature();
+
+            var xml = signedXml.GetXml();
+
+            document.FindChild(AssertionElem).AppendChild(xml);
+        }
+    }
+
+    public class AssertionXmlEncryptor
+    {
+        public void Encrypt(XmlDocument document, X509Certificate2 certificate)
+        {
+            
+        }
+
+        public void Decrypt(XmlDocument document, X509Certificate2 certificate)
+        {
+            
         }
     }
 }

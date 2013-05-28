@@ -38,5 +38,6 @@
         protected const string AuthnContext = "AuthnContext";
         protected const string AuthnContextDeclRef = "AuthnContextDeclRef";
         protected const string NameFormatAtt = "NameFormat";
+        protected const string AssertionElem = "Assertion";
     }
 }

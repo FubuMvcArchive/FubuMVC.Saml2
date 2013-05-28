@@ -8,6 +8,7 @@ namespace FubuSaml2.Certificates
         public string CertificateIssuer { get; set; }
         public Uri Issuer { get; set; }
         public string Thumbprint { get; set; }
+        public Uri Reference { get; set; }
 
         public bool Matches(ICertificate certificate)
         {
