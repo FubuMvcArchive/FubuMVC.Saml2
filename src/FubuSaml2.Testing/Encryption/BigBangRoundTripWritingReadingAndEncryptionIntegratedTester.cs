@@ -30,9 +30,9 @@ namespace FubuSaml2.Testing.Encryption
 
             var certificates = new InMemoryCertificateService(samlCert, cert);
 
-            var xml = new SamlResponseWriter(certificates, new SamlResponseXmlSigner()).Write(samlResponse);
+            var xml = new SamlResponseWriter(certificates, new SamlResponseXmlSigner(), new AssertionXmlEncryptor()).Write(samlResponse);
 
-            readResponse = new SamlResponseReader(certificates).Read(xml);
+            readResponse = new SamlResponseReader(certificates, new AssertionXmlDecryptor()).Read(xml);
         }
 
         [Test]

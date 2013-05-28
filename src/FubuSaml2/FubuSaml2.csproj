@@ -61,7 +61,14 @@
     <Compile Include="Certificates\SamlCertificate.cs" />
     <Compile Include="Certificates\X509CertificateWrapper.cs" />
     <Compile Include="ConditionGroup.cs" />
-    <Compile Include="Encryption\EncryptionClasses.cs" />
+    <Compile Include="Encryption\AssertionXmlDecryptor.cs" />
+    <Compile Include="Encryption\AssertionXmlEncryptor.cs" />
+    <Compile Include="Encryption\IAssertionXmlDecryptor.cs" />
+    <Compile Include="Encryption\SamlResponseWriter.cs" />
+    <Compile Include="Encryption\IAssertionXmlEncryptor.cs" />
+    <Compile Include="Encryption\ISamlResponseXmlSigner.cs" />
+    <Compile Include="Encryption\SamlResponseReader.cs" />
+    <Compile Include="Encryption\SamlResponseXmlSigner.cs" />
     <Compile Include="ICondition.cs" />
     <Compile Include="NameFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,7 +18,7 @@ namespace FubuSaml2.Testing
 
         public static X509Certificate2 Certificate2()
         {
-            var cert = X509Certificate2.CreateFromSignedFile("cert2.pfx");
+            var cert = new X509Certificate2("cert2.pfx", new SecureString(), X509KeyStorageFlags.Exportable);
             return new X509Certificate2(cert);
         }
 

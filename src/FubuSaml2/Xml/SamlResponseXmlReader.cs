@@ -19,6 +19,12 @@ namespace FubuSaml2.Xml
             _root = _document.DocumentElement;
         }
 
+        public SamlResponseXmlReader(XmlDocument document)
+        {
+            _document = document;
+            _root = _document.DocumentElement;
+        }
+
         private XmlElement find(string elementName, string xsd)
         {
             var elements = _document.GetElementsByTagName(elementName, xsd);

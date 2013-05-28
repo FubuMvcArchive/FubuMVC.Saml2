@@ -2,65 +2,25 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
-using System.Text;
 using System.Xml;
 using FubuCore;
-using FubuSaml2.Certificates;
 using FubuSaml2.Xml;
 
 namespace FubuSaml2.Encryption
 {
-    public class SamlResponseWriter : ReadsSamlXml
+    public class AssertionXmlDecryptor : ReadsSamlXml, IAssertionXmlDecryptor
     {
-        private readonly ICertificateService _certificates;
-        private readonly ISamlResponseXmlSigner _xmlSigner;
-
-        public SamlResponseWriter(ICertificateService certificates, ISamlResponseXmlSigner xmlSigner)
+        public void Decrypt(XmlDocument document, X509Certificate2 encryptionCert)
         {
-            _certificates = certificates;
-            _xmlSigner = xmlSigner;
-        }
+            var assertion = document.FindChild(EncryptedAssertion);
+            if (assertion == null) return; // Not encrypted, shame on them.
 
-        public string Write(SamlResponse response)
-        {
-            var xml = new SamlResponseXmlWriter(response).Write();
-            var certificate = _certificates.LoadCertificate(response.Issuer);
-
-            _xmlSigner.ApplySignature(response, certificate, xml);
-
-            var rawXml = xml.OuterXml;
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(rawXml));
-        }
-    
-    }
-
-    // TODO -- need some tests around this
-    public class SamlResponseReader : ReadsSamlXml
-    {
-        private readonly ICertificateService _certificates;
-
-        public SamlResponseReader(ICertificateService certificates)
-        {
-            _certificates = certificates;
-        }
-
-        public SamlResponse Read(string responseText)
-        {
-            var bytes = Convert.FromBase64String(responseText);
-            var xml = Encoding.UTF8.GetString(bytes);
-
-            return new SamlResponseXmlReader(xml).Read();
-        }
-
-        public static void Decrypt(XmlDocument document, X509Certificate2 encryptionCert)
-        {
-            var assertion = document.FindChild("EncryptedAssertion");
             var data = document.EncryptedChild("EncryptedData");
             var keyElement = assertion.EncryptedChild("EncryptedKey");
-            
+
             var encryptedData = new EncryptedData();
             encryptedData.LoadXml(data);
-            
+
             var encryptedKey = new EncryptedKey();
             encryptedKey.LoadXml(keyElement);
             var encryptedXml = new EncryptedXml(document);
@@ -115,48 +75,6 @@ namespace FubuSaml2.Encryption
                 default:
                     throw new Exception("Unrecognized asymmetric encryption algorithm URI '{0}'".ToFormat(algorithmUri));
             }
-        }
-    }
-
-    public interface ISamlResponseXmlSigner
-    {
-        void ApplySignature(SamlResponse response ,X509Certificate2 certificate, XmlDocument document);
-    }
-
-    public class SamlResponseXmlSigner : ReadsSamlXml, ISamlResponseXmlSigner
-    {
-        public void ApplySignature(SamlResponse response, X509Certificate2 certificate, XmlDocument document)
-        {
-            var keyInfo = new KeyInfo();
-            keyInfo.AddClause(new KeyInfoX509Data(certificate));
-
-            var signedXml = new SignedXml(document)
-            {
-                SigningKey = certificate.PrivateKey,
-                KeyInfo = keyInfo
-            };
-
-            var reference = new Reference("#" + response.Id);
-            reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
-            signedXml.AddReference(reference);
-            signedXml.ComputeSignature();
-
-            var xml = signedXml.GetXml();
-
-            document.FindChild(AssertionElem).AppendChild(xml);
-        }
-    }
-
-    public class AssertionXmlEncryptor
-    {
-        public void Encrypt(XmlDocument document, X509Certificate2 certificate)
-        {
-            
-        }
-
-        public void Decrypt(XmlDocument document, X509Certificate2 certificate)
-        {
-            
         }
     }
 }
