@@ -49,18 +49,16 @@
     </Compile>
     <Compile Include="AudienceRestriction.cs" />
     <Compile Include="AuthenticationStatement.cs" />
-    <Compile Include="Certificates\BasicSamlCertificateIssuerRepository.cs" />
+    <Compile Include="Certificates\BasicSamlCertificateRepository.cs" />
     <Compile Include="Certificates\CertificateLoader.cs" />
     <Compile Include="Certificates\CertificateResult.cs" />
-    <Compile Include="Certificates\CertificateIssuerMatcher.cs" />
-    <Compile Include="Certificates\CertificateValidator.cs" />
+    <Compile Include="Certificates\CertificateService.cs" />
     <Compile Include="Certificates\ICertificate.cs" />
-    <Compile Include="Certificates\ICertificateIssuerMatcher.cs" />
     <Compile Include="Certificates\ICertificateLoader.cs" />
-    <Compile Include="Certificates\ICertificateValidator.cs" />
+    <Compile Include="Certificates\ICertificateService.cs" />
     <Compile Include="Certificates\InMemoryCertificate.cs" />
-    <Compile Include="Certificates\ISamlCertificateIssuerRepository.cs" />
-    <Compile Include="Certificates\SamlCertificateIssuer.cs" />
+    <Compile Include="Certificates\ISamlCertificateRepository.cs" />
+    <Compile Include="Certificates\SamlCertificate.cs" />
     <Compile Include="Certificates\X509CertificateWrapper.cs" />
     <Compile Include="ConditionGroup.cs" />
     <Compile Include="Encryption\EncryptionClasses.cs" />

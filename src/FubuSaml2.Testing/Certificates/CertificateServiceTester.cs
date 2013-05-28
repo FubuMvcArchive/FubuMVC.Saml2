@@ -9,8 +9,54 @@ using System.Collections.Generic;
 namespace FubuSaml2.Testing.Certificates    
 {
     [TestFixture]
-    public class CertificateValidatorTester : InteractionContext<CertificateValidator>
+    public class CertificateServiceTester : InteractionContext<CertificateService>
     {
+        [Test]
+        public void load_certificate_when_it_can_be_found()
+        {
+            var issuer = new SamlCertificate
+            {
+                Thumbprint = Guid.NewGuid().ToString(),
+                Issuer = new Uri("foo:bar")
+            };
+
+            var cert = ObjectMother.Certificate2();
+
+            MockFor<ICertificateLoader>().Stub(x => x.Load(issuer.Thumbprint))
+                                         .Return(cert);
+
+            MockFor<ISamlCertificateRepository>().Stub(x => x.Find(issuer.Issuer))
+                                                       .Return(issuer);
+
+            ClassUnderTest.LoadCertificate(issuer.Issuer)
+                          .ShouldBeTheSameAs(cert);
+        }
+
+        [Test]
+        public void returns_null_if_no_cert_can_be_found_for_that_issuer()
+        {
+            var issuer = new SamlCertificate
+            {
+                Thumbprint = Guid.NewGuid().ToString(),
+                Issuer = new Uri("foo:bar")
+            };
+
+
+            MockFor<ISamlCertificateRepository>().Stub(x => x.Find(issuer.Issuer))
+                                                       .Return(issuer);
+
+            ClassUnderTest.LoadCertificate(issuer.Issuer)
+                .ShouldBeNull();
+
+        }
+
+        [Test]
+        public void returns_null_if_no_saml_certificate_for_that_issuer()
+        {
+            ClassUnderTest.LoadCertificate(new Uri("foo:bar"))
+                .ShouldBeNull();
+        }
+
         [Test]
         public void matches_issuer_only_has_to_match_once_single_cert()
         {
@@ -21,9 +67,8 @@ namespace FubuSaml2.Testing.Certificates
                 Certificates = new ICertificate[] {cert}
             };
 
-            var matchers = Services.CreateMockArrayFor<ICertificateIssuerMatcher>(4);
-            matchers[3].Stub(x => x.MatchesIssuer(response.Issuer, cert))
-                       .Return(true);
+            var samlCert = ObjectMother.SamlCertificateMatching(response.Issuer, cert);
+            MockFor<ISamlCertificateRepository>().Stub(x => x.Find(response.Issuer)).Return(samlCert);
 
             ClassUnderTest.MatchesIssuer(response)
                 .ShouldBeTrue();
@@ -39,9 +84,7 @@ namespace FubuSaml2.Testing.Certificates
                 Certificates = new ICertificate[] { cert }
             };
 
-            // The MatchesIssuer method will return false by default unless 
-            // you stub it to something else
-            var matchers = Services.CreateMockArrayFor<ICertificateIssuerMatcher>(4);
+            // The mock SamlCertificateRepository will return a null
 
             ClassUnderTest.MatchesIssuer(response)
                 .ShouldBeFalse();
@@ -64,9 +107,10 @@ namespace FubuSaml2.Testing.Certificates
                 Certificates = certs
             };
 
-            var matchers = Services.CreateMockArrayFor<ICertificateIssuerMatcher>(4);
-            matchers[3].Stub(x => x.MatchesIssuer(response.Issuer, certs.Last()))
-                       .Return(true);
+            var samlCert = ObjectMother.SamlCertificateMatching(response.Issuer, certs[3]);
+            MockFor<ISamlCertificateRepository>().Stub(x => x.Find(response.Issuer))
+                                                 .Return(samlCert);
+
 
             ClassUnderTest.MatchesIssuer(response)
                 .ShouldBeTrue();
@@ -89,7 +133,7 @@ namespace FubuSaml2.Testing.Certificates
                 Certificates = certs
             };
 
-            var matchers = Services.CreateMockArrayFor<ICertificateIssuerMatcher>(4);
+            // SamlCertificateRepository is returning nulls
 
             ClassUnderTest.MatchesIssuer(response)
                 .ShouldBeFalse();

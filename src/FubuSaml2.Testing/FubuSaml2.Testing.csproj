@@ -70,8 +70,8 @@
     </Compile>
     <Compile Include="Certificates\BasicSamlCertificateIssuerRepositoryTester.cs" />
     <Compile Include="Certificates\CertificateLoaderTester.cs" />
-    <Compile Include="Certificates\CertificateValidatorTester.cs" />
-    <Compile Include="Certificates\SignatureCertStrategyTester.cs" />
+    <Compile Include="Certificates\CertificateServiceTester.cs" />
+    <Compile Include="Certificates\SamlCertificateTester.cs" />
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamlNameTester.cs" />
@@ -99,6 +99,9 @@
     <None Include="cert2.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Encryption\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

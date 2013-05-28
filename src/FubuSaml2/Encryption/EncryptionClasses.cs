@@ -4,13 +4,32 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using FubuCore;
+using FubuSaml2.Certificates;
 using FubuSaml2.Xml;
 
 namespace FubuSaml2.Encryption
 {
+    public class XmlEncryptor : ReadsSamlXml
+    {
+        public XmlEncryptor(ISamlCertificateRepository certificates)
+        {
+        }
+
+
+    }
+
     // TODO -- need some tests around this
     public class XmlDecryptor : ReadsSamlXml
     {
+        public XmlDecryptor()
+        {
+        }
+
+        public SamlResponse Read(string responseText)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void Decrypt(XmlDocument document, X509Certificate2 encryptionCert)
         {
             var assertion = document.FindChild("EncryptedAssertion");

@@ -11,17 +11,17 @@ namespace FubuSaml2.Testing.Certificates
         [Test]
         public void find_by_issuer()
         {
-            var issuers = new SamlCertificateIssuer[]
+            var issuers = new SamlCertificate[]
             {
-                new SamlCertificateIssuer{SamlIssuer = new Uri("foo:bar1")}, 
-                new SamlCertificateIssuer{SamlIssuer = new Uri("foo:bar2")}, 
-                new SamlCertificateIssuer{SamlIssuer = new Uri("foo:bar3")} 
+                new SamlCertificate{Issuer = new Uri("foo:bar1")}, 
+                new SamlCertificate{Issuer = new Uri("foo:bar2")}, 
+                new SamlCertificate{Issuer = new Uri("foo:bar3")} 
             };
 
-            var repository = new BasicSamlCertificateIssuerRepository(issuers);
-            repository.Find(issuers[0].SamlIssuer).ShouldBeTheSameAs(issuers[0]);
-            repository.Find(issuers[1].SamlIssuer).ShouldBeTheSameAs(issuers[1]);
-            repository.Find(issuers[2].SamlIssuer).ShouldBeTheSameAs(issuers[2]);
+            var repository = new BasicSamlCertificateRepository(issuers);
+            repository.Find(issuers[0].Issuer).ShouldBeTheSameAs(issuers[0]);
+            repository.Find(issuers[1].Issuer).ShouldBeTheSameAs(issuers[1]);
+            repository.Find(issuers[2].Issuer).ShouldBeTheSameAs(issuers[2]);
         }
     }
 }

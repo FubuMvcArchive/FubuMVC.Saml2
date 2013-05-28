@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using FubuCore;
 using FubuSaml2.Certificates;
+using FubuSaml2.Xml;
 
 namespace FubuSaml2.Testing
 {
@@ -15,6 +18,23 @@ namespace FubuSaml2.Testing
         {
             var cert = X509Certificate2.CreateFromCertFile("cert2.cer");
             return new X509Certificate2(cert);
+        }
+
+        public static SamlResponse Response()
+        {
+            var xml = new FileSystem().ReadStringFromFile("sample.xml");
+            return new SamlResponseXmlReader(xml).Read();
+        }
+
+        public static SamlCertificate SamlCertificateMatching(Uri issuer, ICertificate certificate)
+        {
+            if (certificate == null) throw new ArgumentNullException("certificate");
+            return new SamlCertificate
+            {
+                CertificateIssuer = certificate.Issuer,
+                SerialNumber = certificate.SerialNumber,
+                Issuer = issuer
+            };
         }
     }
 }
