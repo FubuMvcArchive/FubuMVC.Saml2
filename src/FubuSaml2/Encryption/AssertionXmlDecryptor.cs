@@ -23,6 +23,7 @@ namespace FubuSaml2.Encryption
 
             var encryptedKey = new EncryptedKey();
             encryptedKey.LoadXml(keyElement);
+
             var encryptedXml = new EncryptedXml(document);
 
             // Get encryption secret key used by decrypting with the encryption certificate's private key
@@ -61,6 +62,7 @@ namespace FubuSaml2.Encryption
             var keyAlgorithm = encryptedKey.EncryptionMethod.KeyAlgorithm;
             var asymmetricAlgorithm = GetAsymmetricKeyTransportAlgorithm(keyAlgorithm);
             asymmetricAlgorithm.FromXmlString(privateKey.ToXmlString(true));
+            
             var useOaep = keyAlgorithm == EncryptedXml.XmlEncRSAOAEPUrl;
             return asymmetricAlgorithm.Decrypt(encryptedKey.CipherData.CipherValue, useOaep);
         }

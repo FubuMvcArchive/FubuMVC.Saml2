@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using FubuCore.Configuration;
 using System.Linq;
@@ -150,6 +151,11 @@ namespace FubuSaml2.Xml
 
         private void writeStatusCode()
         {
+            if (_response.Status == null)
+            {
+                throw new InvalidOperationException("Status is missing");
+            }
+
             start("Status", ProtocolXsd)
                 .Push("StatusCode")
                 .Attr("Value", _response.Status.Uri)
