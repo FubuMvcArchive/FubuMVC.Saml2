@@ -21,7 +21,7 @@ namespace FubuSaml2.Encryption
 
         public string Write(SamlResponse response)
         {
-            if (response.Status == null) throw new ArgumentOutOfRangeException("SamlResponse much have a Status");
+            if (response.Status == null) throw new ArgumentOutOfRangeException("SamlResponse must have a Status");
 
             var xml = new SamlResponseXmlWriter(response).Write();
             var certificate = _certificates.LoadCertificate(response.Issuer);

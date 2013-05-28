@@ -23,6 +23,7 @@ namespace FubuSaml2.Testing.Encryption
             samlResponse = ObjectMother.Response();
 
             samlResponse.ShouldNotBeNull();
+            samlResponse.Status.ShouldNotBeNull();
 
             cert = ObjectMother.Certificate2();
             samlCert = ObjectMother.SamlCertificateMatching(samlResponse.Issuer, new X509CertificateWrapper(cert));
