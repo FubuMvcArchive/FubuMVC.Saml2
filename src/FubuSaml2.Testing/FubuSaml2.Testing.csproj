@@ -83,6 +83,7 @@
     <Compile Include="SamlNameTester.cs" />
     <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlStatusTester.cs" />
+    <Compile Include="Validation\ConditionTimeFrameTester.cs" />
     <Compile Include="Xml\SamlResponseXmlReaderTester.cs" />
     <Compile Include="Xml\SamlResponseXmlWriterTester.cs" />
   </ItemGroup>

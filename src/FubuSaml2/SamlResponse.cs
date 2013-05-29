@@ -7,22 +7,6 @@ using FubuSaml2.Certificates;
 
 namespace FubuSaml2
 {
-    public class SamlError
-    {
-        public SamlError()
-        {
-        }
-
-        public SamlError(StringToken token)
-        {
-            Key = token.Key;
-            Message = token.ToString();
-        }
-
-        public string Key;
-        public string Message;
-    }
-
     public class SamlResponse
     {
         private readonly IDictionary<string, object> _attributes =

@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using FubuCore.Dates;
 using FubuLocalization;
 using FubuSaml2.Certificates;
 
@@ -24,21 +23,6 @@ namespace FubuSaml2.Validation
     public interface ISamlValidationRule
     {
         void Validate(SamlResponse response);
-    }
-
-    public class ConditionTimeFrame : ISamlValidationRule
-    {
-        private readonly ISystemTime _systemTime;
-
-        public ConditionTimeFrame(ISystemTime systemTime)
-        {
-            _systemTime = systemTime;
-        }
-
-        public void Validate(SamlResponse response)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 
     public class AudienceRestriction : ISamlValidationRule

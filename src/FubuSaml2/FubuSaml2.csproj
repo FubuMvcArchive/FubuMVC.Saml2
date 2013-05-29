@@ -74,11 +74,13 @@
     <Compile Include="ICondition.cs" />
     <Compile Include="NameFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlError.cs" />
     <Compile Include="SamlName.cs" />
     <Compile Include="SamlNameType.cs" />
     <Compile Include="SamlResponse.cs" />
     <Compile Include="SamlStatus.cs" />
     <Compile Include="UriEnum.cs" />
+    <Compile Include="Validation\ConditionTimeFrame.cs" />
     <Compile Include="Validation\ValidationClasses.cs" />
     <Compile Include="Xml\ReadsSamlXml.cs" />
     <Compile Include="Xml\SamlBasicExtensions.cs" />
