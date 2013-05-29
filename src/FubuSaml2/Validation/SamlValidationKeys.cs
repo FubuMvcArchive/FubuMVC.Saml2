@@ -1,8 +1,4 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using FubuLocalization;
+﻿using FubuLocalization;
 
 namespace FubuSaml2.Validation
 {
@@ -12,34 +8,11 @@ namespace FubuSaml2.Validation
         public static readonly SamlValidationKeys CannotMatchIssuer = new SamlValidationKeys("The certificate does not match the issuer");
         public static readonly SamlValidationKeys NoValidCertificates = new SamlValidationKeys("No valid certificates were found");
         public static readonly SamlValidationKeys ValidCertificate = new SamlValidationKeys("The certificate was valid");
+        public static readonly SamlValidationKeys AudiencesDoNotMatch = new SamlValidationKeys("Invalid audience for this application");
 
 
         protected SamlValidationKeys(string defaultValue) : base(null, defaultValue, namespaceByType:true)
         {
-        }
-    }
-
-    
-
-    public interface ISamlValidationRule
-    {
-        void Validate(SamlResponse response);
-    }
-
-    public class AudienceRestriction : ISamlValidationRule
-    {
-        public AudienceRestriction(Uri audience)
-        {
-            
-        }
-
-        public AudienceRestriction(IEnumerable<Uri> audiences)
-        {
-        }
-
-        public void Validate(SamlResponse response)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

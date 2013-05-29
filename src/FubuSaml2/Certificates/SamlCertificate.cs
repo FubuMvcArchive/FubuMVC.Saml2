@@ -10,6 +10,7 @@ namespace FubuSaml2.Certificates
         public string Thumbprint { get; set; }
         public Uri Reference { get; set; }
 
+
         public bool Matches(ICertificate certificate)
         {
             return certificate.SerialNumber == SerialNumber &&

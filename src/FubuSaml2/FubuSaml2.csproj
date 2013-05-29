@@ -79,11 +79,14 @@
     <Compile Include="SamlNameType.cs" />
     <Compile Include="SamlResponse.cs" />
     <Compile Include="SamlStatus.cs" />
+    <Compile Include="SignatureStatus.cs" />
     <Compile Include="UriEnum.cs" />
+    <Compile Include="Validation\AudienceValidationRule.cs" />
     <Compile Include="Validation\CertificateValidation.cs" />
     <Compile Include="Validation\ConditionTimeFrame.cs" />
+    <Compile Include="Validation\ISamlValidationRule.cs" />
     <Compile Include="Validation\SignatureIsRequired.cs" />
-    <Compile Include="Validation\ValidationClasses.cs" />
+    <Compile Include="Validation\SamlValidationKeys.cs" />
     <Compile Include="Xml\ReadsSamlXml.cs" />
     <Compile Include="Xml\SamlBasicExtensions.cs" />
     <Compile Include="Xml\SamlResponseXmlReader.cs" />

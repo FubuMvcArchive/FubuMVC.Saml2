@@ -83,6 +83,7 @@
     <Compile Include="SamlNameTester.cs" />
     <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlStatusTester.cs" />
+    <Compile Include="Validation\AudienceValidationRuleTester.cs" />
     <Compile Include="Validation\CertificateValidationTester.cs" />
     <Compile Include="Validation\ConditionTimeFrameTester.cs" />
     <Compile Include="Validation\SignatureIsRequiredTester.cs" />

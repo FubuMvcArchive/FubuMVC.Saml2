@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using FubuSaml2.Xml;
@@ -19,10 +20,10 @@ namespace FubuSaml2
             NotOnOrAfter = element.ReadAttribute<DateTimeOffset>(NotOnOrAfterAtt);
 
             // TODO -- couple other kinds of conditions here
-            Conditions = readAudiences(element);
+            readAudiences(element).Each(Add);
         }
 
-        private AudienceRestriction[] readAudiences(XmlElement conditions)
+        private IEnumerable<AudienceRestriction> readAudiences(XmlElement conditions)
         {
             return conditions
                 .Children(AudienceRestriction, AssertionXsd)
@@ -33,12 +34,26 @@ namespace FubuSaml2
                     {
                         Audiences = audiences
                     };
-                }).ToArray();
+                });
         }
 
         public DateTimeOffset NotBefore { get; set; }
         public DateTimeOffset NotOnOrAfter { get; set; }
 
-        public ICondition[] Conditions { get; set; }
+        public ICondition[] Conditions
+        {
+            get { return _conditions.ToArray(); }
+            set
+            {
+                _conditions.Clear();
+                _conditions.AddRange(value);
+            }
+        }
+        private readonly IList<ICondition> _conditions = new List<ICondition>();
+
+        public void Add(ICondition condition)
+        {
+            _conditions.Add(condition);
+        }
     }
 }

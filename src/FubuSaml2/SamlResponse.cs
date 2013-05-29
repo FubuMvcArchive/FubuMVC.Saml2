@@ -4,6 +4,7 @@ using FubuCore;
 using FubuCore.Util;
 using FubuLocalization;
 using FubuSaml2.Certificates;
+using System.Linq;
 
 namespace FubuSaml2
 {
@@ -32,6 +33,16 @@ namespace FubuSaml2
         public IEnumerable<SamlError> Errors
         {
             get { return _errors; }
+        } 
+
+        public IEnumerable<AudienceRestriction> AudienceRestrictions
+        {
+            get
+            {
+                if (Conditions == null) return new AudienceRestriction[0];
+
+                return Conditions.Conditions.OfType<AudienceRestriction>();
+            }
         } 
 
         public SamlStatus Status { get; set; }
@@ -73,17 +84,22 @@ namespace FubuSaml2
                 _attributes.Add(key, value);
             }
         }
-    }
 
-    public class SignatureStatus : StringToken
-    {
-        public static readonly SignatureStatus NotSigned = new SignatureStatus("The SamlResponse was not signed");
-        public static readonly SignatureStatus InvalidSignature = new SignatureStatus("The SamlResponse signature was invalid");
-        public static readonly SignatureStatus Signed = new SignatureStatus("The SamlResponse signature is valid");
-        
-
-        protected SignatureStatus(string defaultValue) : base(null, defaultValue, namespaceByType:true)
+        public void AddAudienceRestriction(Uri audience)
         {
+            if (Conditions == null)
+            {
+                Conditions = new ConditionGroup();
+            }
+
+            var restriction = Conditions.Conditions.OfType<AudienceRestriction>().FirstOrDefault();
+            if (restriction == null)
+            {
+                restriction = new AudienceRestriction();
+                Conditions.Add(restriction);
+            }
+
+            restriction.Add(audience);
         }
     }
 }
