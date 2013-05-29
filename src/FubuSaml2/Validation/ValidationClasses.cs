@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using FubuLocalization;
-using FubuSaml2.Certificates;
 
 namespace FubuSaml2.Validation
 {
@@ -13,7 +12,7 @@ namespace FubuSaml2.Validation
         public static readonly SamlValidationKeys CannotMatchIssuer = new SamlValidationKeys("The certificate does not match the issuer");
         public static readonly SamlValidationKeys NoValidCertificates = new SamlValidationKeys("No valid certificates were found");
         public static readonly SamlValidationKeys ValidCertificate = new SamlValidationKeys("The certificate was valid");
-
+        
 
         protected SamlValidationKeys(string defaultValue) : base(null, defaultValue, namespaceByType:true)
         {
@@ -39,21 +38,6 @@ namespace FubuSaml2.Validation
         public void Validate(SamlResponse response)
         {
             throw new System.NotImplementedException();
-        }
-    }
-
-    public class CertificateValidation : ISamlValidationRule
-    {
-        private readonly ICertificateService _service;
-
-        public CertificateValidation(ICertificateService service)
-        {
-            _service = service;
-        }
-
-        public void Validate(SamlResponse response)
-        {
-            throw new NotImplementedException();
         }
     }
 

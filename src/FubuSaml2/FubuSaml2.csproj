@@ -80,6 +80,7 @@
     <Compile Include="SamlResponse.cs" />
     <Compile Include="SamlStatus.cs" />
     <Compile Include="UriEnum.cs" />
+    <Compile Include="Validation\CertificateValidation.cs" />
     <Compile Include="Validation\ConditionTimeFrame.cs" />
     <Compile Include="Validation\ValidationClasses.cs" />
     <Compile Include="Xml\ReadsSamlXml.cs" />

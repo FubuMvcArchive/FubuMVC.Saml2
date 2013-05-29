@@ -35,7 +35,7 @@
       <HintPath>..\packages\FubuCore\lib\FubuCore.dll</HintPath>
     </Reference>
     <Reference Include="FubuLocalization">
-      <HintPath>..\FubuMVC.Saml2\bin\Debug\FubuLocalization.dll</HintPath>
+      <HintPath>..\packages\FubuLocalization\lib\FubuLocalization.dll</HintPath>
     </Reference>
     <Reference Include="FubuTestingSupport">
       <HintPath>..\packages\FubuTestingSupport\lib\FubuTestingSupport.dll</HintPath>
@@ -83,6 +83,7 @@
     <Compile Include="SamlNameTester.cs" />
     <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlStatusTester.cs" />
+    <Compile Include="Validation\CertificateValidationTester.cs" />
     <Compile Include="Validation\ConditionTimeFrameTester.cs" />
     <Compile Include="Xml\SamlResponseXmlReaderTester.cs" />
     <Compile Include="Xml\SamlResponseXmlWriterTester.cs" />
