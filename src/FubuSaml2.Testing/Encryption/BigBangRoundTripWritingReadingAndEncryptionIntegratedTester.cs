@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using FubuSaml2.Certificates;
 using FubuSaml2.Encryption;
+using FubuSaml2.Validation;
 using FubuTestingSupport;
 using NUnit.Framework;
 using StructureMap;
@@ -181,11 +182,11 @@ namespace FubuSaml2.Testing.Encryption
             _realCertificate = realCertificate;
         }
 
-        public CertificateResult Validate(SamlResponse response)
+        public SamlValidationKeys Validate(SamlResponse response)
         {
-            if (response.Issuer == _certificate.Issuer) return CertificateResult.Validated;
+            if (response.Issuer == _certificate.Issuer) return SamlValidationKeys.ValidCertificate;
 
-            return CertificateResult.CannotMatchIssuer;
+            return SamlValidationKeys.CannotMatchIssuer;
         }
 
         public X509Certificate2 LoadCertificate(Uri issuer)

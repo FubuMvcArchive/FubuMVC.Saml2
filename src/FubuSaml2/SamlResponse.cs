@@ -2,19 +2,53 @@
 using System.Collections.Generic;
 using FubuCore;
 using FubuCore.Util;
+using FubuLocalization;
 using FubuSaml2.Certificates;
 
 namespace FubuSaml2
 {
+    public class SamlError
+    {
+        public SamlError()
+        {
+        }
+
+        public SamlError(StringToken token)
+        {
+            Key = token.Key;
+            Message = token.ToString();
+        }
+
+        public string Key;
+        public string Message;
+    }
+
     public class SamlResponse
     {
         private readonly IDictionary<string, object> _attributes =
             new Dictionary<string, object>();
 
+        private readonly IList<SamlError> _errors = new List<SamlError>(); 
+
         public SamlResponse()
         {
             Attributes = new DictionaryKeyValues<object>(_attributes);
         }
+
+        public void LogError(SamlError error)
+        {
+            _errors.Add(error);
+        }
+
+        public void LogError(StringToken message)
+        {
+            _errors.Add(new SamlError(message));
+        }
+
+        public IEnumerable<SamlError> Errors
+        {
+            get { return _errors; }
+        } 
 
         public SamlStatus Status { get; set; }
         public Uri Issuer { get; set; }

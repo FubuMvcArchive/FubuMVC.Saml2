@@ -6,7 +6,6 @@ namespace FubuSaml2
 
     public class SamlStatus : UriEnum<SamlStatus>
     {
-
         public static readonly SamlStatus Success = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Success", "The request succeeded");
         public static readonly SamlStatus RequesterError = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Requester", "The request could not be performed due to an error on the part of the requester.");
         public static readonly SamlStatus ResponderError = new SamlStatus("urn:oasis:names:tc:SAML:2.0:status:Responder", "The request could not be performed due to an error on the part of the SAML responder or SAML authority.");

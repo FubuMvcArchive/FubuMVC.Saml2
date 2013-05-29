@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using FubuSaml2.Validation;
 
 namespace FubuSaml2.Certificates
 {
@@ -16,13 +17,13 @@ namespace FubuSaml2.Certificates
             _repository = repository;
         }
 
-        public CertificateResult Validate(SamlResponse response)
+        public SamlValidationKeys Validate(SamlResponse response)
         {
-            if (!MatchesIssuer(response)) return CertificateResult.CannotMatchIssuer;
+            if (!MatchesIssuer(response)) return SamlValidationKeys.CannotMatchIssuer;
 
             return response.Certificates.Any(x => x.IsVerified)
-                       ? CertificateResult.Validated
-                       : CertificateResult.NoValidCertificates;
+                       ? SamlValidationKeys.ValidCertificate
+                       : SamlValidationKeys.NoValidCertificates;
         }
 
         public X509Certificate2 LoadCertificate(Uri issuer)

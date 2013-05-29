@@ -1,5 +1,6 @@
 ﻿using System;
 using FubuSaml2.Certificates;
+using FubuSaml2.Validation;
 using FubuTestingSupport;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -149,7 +150,7 @@ namespace FubuSaml2.Testing.Certificates
             ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(false);
 
             ClassUnderTest.Validate(response)
-                          .ShouldEqual(CertificateResult.CannotMatchIssuer);
+                          .ShouldEqual(SamlValidationKeys.CannotMatchIssuer);
         }
 
         [Test]
@@ -164,7 +165,7 @@ namespace FubuSaml2.Testing.Certificates
             ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(true);
 
             ClassUnderTest.Validate(response)
-                          .ShouldEqual(CertificateResult.NoValidCertificates);
+                          .ShouldEqual(SamlValidationKeys.NoValidCertificates);
         }
 
         [Test]
@@ -179,7 +180,7 @@ namespace FubuSaml2.Testing.Certificates
             ClassUnderTest.Expect(x => x.MatchesIssuer(response)).Return(true);
 
             ClassUnderTest.Validate(response)
-                          .ShouldEqual(CertificateResult.Validated);
+                          .ShouldEqual(SamlValidationKeys.ValidCertificate);
         }
     }
 }

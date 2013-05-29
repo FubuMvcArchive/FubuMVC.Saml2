@@ -34,6 +34,9 @@
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore\lib\FubuCore.dll</HintPath>
     </Reference>
+    <Reference Include="FubuLocalization">
+      <HintPath>..\packages\FubuLocalization\lib\FubuLocalization.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,7 +54,6 @@
     <Compile Include="AuthenticationStatement.cs" />
     <Compile Include="Certificates\BasicSamlCertificateRepository.cs" />
     <Compile Include="Certificates\CertificateLoader.cs" />
-    <Compile Include="Certificates\CertificateResult.cs" />
     <Compile Include="Certificates\CertificateService.cs" />
     <Compile Include="Certificates\ICertificate.cs" />
     <Compile Include="Certificates\ICertificateLoader.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="SamlResponse.cs" />
     <Compile Include="SamlStatus.cs" />
     <Compile Include="UriEnum.cs" />
+    <Compile Include="Validation\ValidationClasses.cs" />
     <Compile Include="Xml\ReadsSamlXml.cs" />
     <Compile Include="Xml\SamlBasicExtensions.cs" />
     <Compile Include="Xml\SamlResponseXmlReader.cs" />

@@ -34,6 +34,9 @@
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore\lib\FubuCore.dll</HintPath>
     </Reference>
+    <Reference Include="FubuLocalization">
+      <HintPath>..\FubuMVC.Saml2\bin\Debug\FubuLocalization.dll</HintPath>
+    </Reference>
     <Reference Include="FubuTestingSupport">
       <HintPath>..\packages\FubuTestingSupport\lib\FubuTestingSupport.dll</HintPath>
     </Reference>
@@ -76,6 +79,7 @@
     <Compile Include="Encryption\BigBangRoundTripWritingReadingAndEncryptionIntegratedTester.cs" />
     <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlErrorTester.cs" />
     <Compile Include="SamlNameTester.cs" />
     <Compile Include="SamlResponseTester.cs" />
     <Compile Include="SamlStatusTester.cs" />
