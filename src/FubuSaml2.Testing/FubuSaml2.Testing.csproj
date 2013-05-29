@@ -85,6 +85,7 @@
     <Compile Include="SamlStatusTester.cs" />
     <Compile Include="Validation\CertificateValidationTester.cs" />
     <Compile Include="Validation\ConditionTimeFrameTester.cs" />
+    <Compile Include="Validation\SignatureIsRequiredTester.cs" />
     <Compile Include="Xml\SamlResponseXmlReaderTester.cs" />
     <Compile Include="Xml\SamlResponseXmlWriterTester.cs" />
   </ItemGroup>
