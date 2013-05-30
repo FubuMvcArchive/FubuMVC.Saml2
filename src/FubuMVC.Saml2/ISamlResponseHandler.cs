@@ -2,7 +2,7 @@
 
 namespace FubuMVC.Saml2
 {
-    public interface ISamlResponseStrategy
+    public interface ISamlResponseHandler
     {
         bool CanHandle(SamlResponse response);
         void Handle(ISamlDirector director, SamlResponse response);

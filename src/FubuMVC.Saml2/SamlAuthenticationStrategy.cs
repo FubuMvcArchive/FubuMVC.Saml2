@@ -15,9 +15,9 @@ namespace FubuMVC.Saml2
         private readonly ISamlDirector _director;
         private readonly ISamlResponseReader _reader;
         private readonly IEnumerable<ISamlValidationRule> _rules;
-        private readonly IEnumerable<ISamlResponseStrategy> _strategies;
+        private readonly IEnumerable<ISamlResponseHandler> _strategies;
 
-        public SamlAuthenticationStrategy(IRequestData requestData, ISamlDirector director, ISamlResponseReader reader, IEnumerable<ISamlValidationRule> rules, IEnumerable<ISamlResponseStrategy> strategies)
+        public SamlAuthenticationStrategy(IRequestData requestData, ISamlDirector director, ISamlResponseReader reader, IEnumerable<ISamlValidationRule> rules, IEnumerable<ISamlResponseHandler> strategies)
         {
             _requestData = requestData;
             _director = director;

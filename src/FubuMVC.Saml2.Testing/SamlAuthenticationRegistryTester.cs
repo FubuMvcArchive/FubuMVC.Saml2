@@ -91,7 +91,7 @@ namespace FubuMVC.Saml2.Testing
         private ISamlValidationRule[] theRules;
         private SamlResponse theResponse;
         private string theXml;
-        private ISamlResponseStrategy[] theHandlers;
+        private ISamlResponseHandler[] theHandlers;
 
         protected override void beforeEach()
         {
@@ -102,7 +102,7 @@ namespace FubuMVC.Saml2.Testing
 
             MockFor<ISamlResponseReader>().Stub(x => x.Read(theXml)).Return(theResponse);
 
-            theHandlers = Services.CreateMockArrayFor<ISamlResponseStrategy>(3);
+            theHandlers = Services.CreateMockArrayFor<ISamlResponseHandler>(3);
             theHandlers[2].Stub(x => x.CanHandle(theResponse)).Return(true);
 
             ClassUnderTest.ProcessSamlResponseXml(theXml);

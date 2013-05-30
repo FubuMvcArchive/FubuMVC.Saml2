@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="has_to_have_the_fubu_module_attribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Saml2ServicesRegistry_specification.cs" />
     <Compile Include="SamlAuthenticationRegistryTester.cs" />
     <Compile Include="SamlDirectorTester.cs" />
     <Compile Include="SamlResponseSettingsTester.cs" />

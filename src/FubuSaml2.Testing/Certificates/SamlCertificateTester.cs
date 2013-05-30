@@ -49,5 +49,26 @@ namespace FubuSaml2.Testing.Certificates
                 CertificateIssuer = Guid.NewGuid().ToString()
             }.Matches(Certificate).ShouldBeFalse();
         }
+
+        [Test]
+        public void formats_and_load_via_string()
+        {
+            var cert1 = new SamlCertificate
+            {
+                Issuer = new Uri("foo:bar1"),
+                SerialNumber = "12345",
+                CertificateIssuer = "DN=Foo",
+                Thumbprint = "ab cd ef"
+            };
+
+            var cert2 = new SamlCertificate(cert1.ToString());
+
+            cert2.ShouldNotBeTheSameAs(cert1);
+
+            cert2.Issuer.ShouldEqual(cert1.Issuer);
+            cert2.SerialNumber.ShouldEqual(cert1.SerialNumber);
+            cert2.CertificateIssuer.ShouldEqual(cert1.CertificateIssuer);
+            cert2.Thumbprint.ShouldEqual(cert1.Thumbprint);
+        }
     }
 }

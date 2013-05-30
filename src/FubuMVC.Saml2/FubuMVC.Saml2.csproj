@@ -68,8 +68,9 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ISamlDirector.cs" />
-    <Compile Include="ISamlResponseStrategy.cs" />
+    <Compile Include="ISamlResponseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationClasses.cs" />
     <Compile Include="SamlAuthenticationStrategy.cs" />
     <Compile Include="SamlDirector.cs" />
     <Compile Include="SamlResponseSettings.cs" />
