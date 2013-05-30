@@ -6,7 +6,12 @@ using FubuSaml2.Xml;
 
 namespace FubuSaml2.Encryption
 {
-    public class SamlResponseReader : ReadsSamlXml
+    public interface ISamlResponseReader
+    {
+        SamlResponse Read(string responseText);
+    }
+
+    public class SamlResponseReader : ReadsSamlXml, ISamlResponseReader
     {
         private readonly ICertificateService _certificates;
         private readonly IAssertionXmlDecryptor _decryptor;

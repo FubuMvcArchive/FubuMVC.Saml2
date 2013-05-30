@@ -90,6 +90,9 @@
     </Compile>
     <Compile Include="has_to_have_the_fubu_module_attribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SamlDirectorTester.cs" />
+    <Compile Include="SamlResponseSettingsTester.cs" />
+    <Compile Include="SamlResponseValidationRulesRegistrationTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FubuMVC.Saml2\FubuMVC.Saml2.csproj">
