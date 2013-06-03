@@ -12,6 +12,7 @@ namespace FubuMVC.Saml2
             // TODO -- UT's these
             SetServiceIfNone<ISamlDirector, SamlDirector>();
             SetServiceIfNone<ISamlResponseReader, SamlResponseReader>();
+            SetServiceIfNone<ISamlResponseWriter, SamlResponseWriter>();
             SetServiceIfNone<ICertificateService, CertificateService>();
             SetServiceIfNone<IAssertionXmlDecryptor, AssertionXmlDecryptor>();
             SetServiceIfNone<ICertificateLoader, CertificateLoader>();

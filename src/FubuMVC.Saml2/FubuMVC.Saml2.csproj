@@ -60,6 +60,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -77,6 +78,7 @@
     <Compile Include="Saml2VerificationActivator.cs" />
     <Compile Include="SamlAuthenticationStrategy.cs" />
     <Compile Include="SamlDirector.cs" />
+    <Compile Include="SamlResponseRedirector.cs" />
     <Compile Include="SamlResponseSettings.cs" />
     <Compile Include="SamlResponseValidationRulesRegistration.cs" />
   </ItemGroup>

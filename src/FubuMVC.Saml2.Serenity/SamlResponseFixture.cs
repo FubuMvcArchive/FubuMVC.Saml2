@@ -31,6 +31,11 @@ namespace FubuMVC.Saml2.Serenity
             _response.IssueInstant = new DateTimeOffset(_now);
         }
 
+        public override void TearDown()
+        {
+            Context.Store(_response);
+        }
+
         [FormatAs("The issuer is {issuer}")]
         public void IssuerIs(Uri issuer)
         {

@@ -30,6 +30,12 @@ namespace FubuMVC.Saml2.Testing
         }
 
         [Test]
+        public void ISamlResponseWriter()
+        {
+            registeredTypeIs<ISamlResponseWriter, SamlResponseWriter>();
+        }
+
+        [Test]
         public void ICertificateService()
         {
             registeredTypeIs<ICertificateService, CertificateService>();
