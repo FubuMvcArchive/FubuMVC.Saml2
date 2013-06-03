@@ -1,4 +1,5 @@
-﻿using FubuMVC.Authentication;
+﻿using FubuCore;
+using FubuMVC.Authentication;
 using FubuMVC.Authentication.Membership;
 using FubuMVC.Core;
 using FubuMVC.Core.Registration;
@@ -21,9 +22,14 @@ namespace FubuMVC.Saml2.Testing
             var registry = new FubuRegistry();
             registry.Import<Saml2Extensions>();
             registry.Import<ApplyAuthentication>();
+
+            var samlCertificateRepository = MockRepository.GenerateMock<ISamlCertificateRepository>();
+            samlCertificateRepository.Stub(x => x.AllKnownCertificates()).Return(new SamlCertificate[0]);
+
             registry.Services(x => {
                 x.SetServiceIfNone<IPrincipalBuilder>(MockRepository.GenerateMock<IPrincipalBuilder>());
-                x.SetServiceIfNone<ISamlCertificateRepository>(MockRepository.GenerateMock<ISamlCertificateRepository>());
+                x.AddService<ISamlResponseHandler>(MockRepository.GenerateMock<ISamlResponseHandler>());
+                x.SetServiceIfNone<ISamlCertificateRepository>(samlCertificateRepository);
             });
 
             var container = new Container();
@@ -42,10 +48,15 @@ namespace FubuMVC.Saml2.Testing
             var registry = new FubuRegistry();
             registry.Import<Saml2Extensions>();
             registry.Import<ApplyAuthentication>();
+
+            var samlCertificateRepository = MockRepository.GenerateMock<ISamlCertificateRepository>();
+            samlCertificateRepository.Stub(x => x.AllKnownCertificates()).Return(new SamlCertificate[0]);
+
             registry.Services(x =>
             {
                 x.SetServiceIfNone<IPrincipalBuilder>(MockRepository.GenerateMock<IPrincipalBuilder>());
-                x.SetServiceIfNone<ISamlCertificateRepository>(MockRepository.GenerateMock<ISamlCertificateRepository>());
+                x.AddService<ISamlResponseHandler>(MockRepository.GenerateMock<ISamlResponseHandler>());
+                x.SetServiceIfNone<ISamlCertificateRepository>(samlCertificateRepository);
             });
 
             registry.AlterSettings<AuthenticationSettings>(x => {
@@ -58,6 +69,63 @@ namespace FubuMVC.Saml2.Testing
 
             var strategies = container.GetAllInstances<IAuthenticationStrategy>();
             strategies.Single().ShouldBeOfType<SamlAuthenticationStrategy>();
+
+        }
+
+        [Test]
+        public void blows_up_with_no_saml_certificate_repository()
+        {
+            var registry = new FubuRegistry();
+
+            var samlCertificateRepository = MockRepository.GenerateMock<ISamlCertificateRepository>();
+            samlCertificateRepository.Stub(r => r.AllKnownCertificates())
+                                     .Return(new SamlCertificate[0]);
+
+            registry.Services(x =>
+            {
+                x.SetServiceIfNone<IPrincipalBuilder>(MockRepository.GenerateMock<IPrincipalBuilder>());
+
+
+
+                x.SetServiceIfNone<ISamlCertificateRepository>(samlCertificateRepository);
+                //x.SetServiceIfNone(MockRepository.GenerateMock<ISamlResponseHandler>());
+
+            });
+
+            Exception<FubuException>.ShouldBeThrownBy(() => {
+                FubuApplication.For(registry).StructureMap(new Container()).Bootstrap();
+            });
+
+            
+
+        }
+
+        [Test]
+        public void blows_up_with_no_saml_handlers()
+        {
+            var registry = new FubuRegistry();
+
+            var samlCertificateRepository = MockRepository.GenerateMock<ISamlCertificateRepository>();
+            samlCertificateRepository.Stub(r => r.AllKnownCertificates())
+                                     .Return(new SamlCertificate[0]);
+
+            registry.Services(x =>
+            {
+                x.SetServiceIfNone<IPrincipalBuilder>(MockRepository.GenerateMock<IPrincipalBuilder>());
+
+
+
+                x.SetServiceIfNone<ISamlCertificateRepository>(samlCertificateRepository);
+                //x.SetServiceIfNone(MockRepository.GenerateMock<ISamlResponseHandler>());
+
+            });
+
+            Exception<FubuException>.ShouldBeThrownBy(() =>
+            {
+                FubuApplication.For(registry).StructureMap(new Container()).Bootstrap();
+            });
+
+
 
         }
     }

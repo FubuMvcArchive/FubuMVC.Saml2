@@ -47,6 +47,41 @@ namespace FubuMVC.Saml2.Testing
             theLog.FullTraceText().ShouldContain(exception.ToString());
             theLog.FullTraceText().ShouldContain("Could not resolve " + typeof(IFoo).FullName);
         }
+
+        [Test]
+        public void verify_any_happy_path()
+        {
+            var theFoo = new Foo();
+            var services = new InMemoryServiceLocator();
+            services.Add(new EnvironmentTestExtensions.Holder<IFoo>(new IFoo[]{theFoo}));
+
+            services.VerifyAnyRegistrations<IFoo>(theLog);
+            theLog.Success.ShouldBeTrue();
+        }
+
+        [Test]
+        public void verify_any_empty()
+        {
+            var services = new InMemoryServiceLocator();
+            services.Add(new EnvironmentTestExtensions.Holder<IFoo>(new IFoo[0] ));
+
+            services.VerifyAnyRegistrations<IFoo>(theLog);
+            theLog.Success.ShouldBeFalse();
+            theLog.FullTraceText().ShouldContain("No implementations of {0} are registered".ToFormat(typeof(IFoo).FullName));
+        }
+
+        [Test]
+        public void verify_any_blows_up()
+        {
+            var exception = new NotImplementedException();
+            theServices.Stub(x => x.GetInstance<EnvironmentTestExtensions.Holder<IFoo>>())
+                       .Throw(exception);
+
+            theServices.VerifyAnyRegistrations<IFoo>(theLog);
+
+            theLog.Success.ShouldBeFalse();
+            theLog.FullTraceText().ShouldContain(exception.ToString());
+        }
     }
 
     public interface IFoo

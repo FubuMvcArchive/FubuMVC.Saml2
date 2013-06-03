@@ -18,6 +18,8 @@ namespace FubuMVC.Saml2
             registry.Policies.Add<SamlResponseValidationRulesRegistration>();
             registry.Policies.Add<Saml2AuthenticationRegistration>();
             registry.Services<Saml2ServicesRegistry>();
+
+
         }
     }
 
@@ -32,7 +34,7 @@ namespace FubuMVC.Saml2
             SetServiceIfNone<IAssertionXmlDecryptor, AssertionXmlDecryptor>();
             SetServiceIfNone<ICertificateLoader, CertificateLoader>();
 
-            // more probably
+            AddService<IActivator, Saml2VerificationActivator>();
         }
     }
 
@@ -43,10 +45,6 @@ namespace FubuMVC.Saml2
         {
             graph.Settings.Get<AuthenticationSettings>()
                 .Strategies.InsertFirst(new AuthenticationNode(typeof(SamlAuthenticationStrategy)));
-
-            // TODO -- put the SamlAuthenticationRegistry first
-            // TODO -- test with and without basic auth disabled
-
         }
     }
 
@@ -63,20 +61,14 @@ namespace FubuMVC.Saml2
 
         public void Activate(IEnumerable<IPackageInfo> packages, IPackageLog log)
         {
-
-            try
+            var repository = _services.VerifyRegistration<ISamlCertificateRepository>(log);
+            _services.VerifyRegistration<IPrincipalBuilder>(log);
+            _services.VerifyAnyRegistrations<ISamlResponseHandler>(log);
+ 
+            if (repository != null)
             {
-                var repository = _services.GetInstance<ISamlCertificateRepository>();
                 checkCertificates(repository, log);
             }
-            catch (Exception e)
-            {
-                log.MarkFailure("Could not build ISamlCertificateRepository");
-                log.MarkFailure(e);
-            }
-            // mark failure if not all the certificates can be loaded
-            // mark failure if ISamlCertificateRepository is not loaded
-            // mark failure if no ISamlResponseHandler's are registered
         }
 
         private void checkCertificates(ISamlCertificateRepository repository, IPackageLog log)
