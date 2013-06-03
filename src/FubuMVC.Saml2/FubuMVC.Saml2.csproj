@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="ISamlDirector.cs" />
     <Compile Include="ISamlResponseHandler.cs" />
+    <Compile Include="EnvironmentTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationClasses.cs" />
     <Compile Include="SamlAuthenticationStrategy.cs" />

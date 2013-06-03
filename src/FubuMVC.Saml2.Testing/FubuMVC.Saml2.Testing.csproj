@@ -92,6 +92,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="bottle_configuration_integration_tester.cs" />
+    <Compile Include="EnvironmentTestExtensionsTester.cs" />
     <Compile Include="has_to_have_the_fubu_module_attribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saml2ServicesRegistry_specification.cs" />

@@ -63,12 +63,43 @@ namespace FubuMVC.Saml2
 
         public void Activate(IEnumerable<IPackageInfo> packages, IPackageLog log)
         {
+
+            try
+            {
+                var repository = _services.GetInstance<ISamlCertificateRepository>();
+                checkCertificates(repository, log);
+            }
+            catch (Exception e)
+            {
+                log.MarkFailure("Could not build ISamlCertificateRepository");
+                log.MarkFailure(e);
+            }
             // mark failure if not all the certificates can be loaded
             // mark failure if ISamlCertificateRepository is not loaded
             // mark failure if no ISamlResponseHandler's are registered
         }
-    }
 
+        private void checkCertificates(ISamlCertificateRepository repository, IPackageLog log)
+        {
+            var loader = _services.GetInstance<ICertificateLoader>();
+
+            repository.AllKnownCertificates().Each(samlCertificate => {
+                try
+                {
+                    var certificate = loader.Load(samlCertificate.Thumbprint);
+                    if (certificate == null)
+                    {
+                        log.MarkFailure("Could not load Certificate for Issuer " + samlCertificate.Issuer);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.MarkFailure("Could not load Certificate for Issuer " + samlCertificate.Issuer);
+                    log.MarkFailure(ex);
+                }
+            });
+        }
+    }
 }
 
 
