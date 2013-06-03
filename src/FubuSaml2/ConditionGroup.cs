@@ -55,5 +55,13 @@ namespace FubuSaml2
         {
             _conditions.Add(condition);
         }
+
+        public void RestrictToAudience(Uri uri)
+        {
+            var restriction = new AudienceRestriction();
+            restriction.Add(uri);
+
+            Add(restriction);
+        }
     }
 }

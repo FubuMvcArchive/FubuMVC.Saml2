@@ -95,7 +95,7 @@ namespace FubuSaml2.Xml
 
             foreach (XmlElement attElement in attributes.GetElementsByTagName(Attribute, AssertionXsd))
             {
-                string key = attElement.GetAttribute(Name);
+                string key = attElement.GetAttribute(NameAtt);
                 foreach (XmlElement valueElement in attElement.GetElementsByTagName(AttributeValue, AssertionXsd))
                 {
                     response.AddAttribute(key, valueElement.InnerText);
@@ -106,7 +106,7 @@ namespace FubuSaml2.Xml
 
         private SamlStatus readStatusCode()
         {
-            return find(StatusCode, ProtocolXsd).GetAttribute(Value).ToSamlStatus();
+            return find(StatusCode, ProtocolXsd).GetAttribute(ValueAtt).ToSamlStatus();
         }
     }
 }

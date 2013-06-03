@@ -59,7 +59,7 @@ namespace FubuSaml2.Xml
 
             keys.Each(key => {
                 var attributeElement = root.Child(Attribute)
-                    .Attr(Name, key)
+                    .Attr(NameAtt, key)
                     .Attr(NameFormatAtt, "urn:oasis:names:tc:SAML:2.0:attrname-format:basic".ToUri());
                 
                 

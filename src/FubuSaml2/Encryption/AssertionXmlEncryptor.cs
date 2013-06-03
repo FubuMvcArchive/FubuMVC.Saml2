@@ -14,6 +14,7 @@ namespace FubuSaml2.Encryption
             var element = document.FindChild(AssertionElem);
             var encryptedXml = new EncryptedXml {Encoding = Encoding.UTF8};
             
+            // TODO -- make this pluggable with settings?
             //Create the Symmetric Key for encrypting
             var key = new RijndaelManaged
             {

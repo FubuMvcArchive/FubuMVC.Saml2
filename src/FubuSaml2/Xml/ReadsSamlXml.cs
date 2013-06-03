@@ -10,9 +10,9 @@
         protected const string Destination = "Destination";
         protected const string IssueInstant = "IssueInstant";
         protected const string StatusCode = "StatusCode";
-        protected const string Value = "Value";
+        protected const string ValueAtt = "Value";
         protected const string AttributeStatement = "AttributeStatement";
-        protected const string Name = "Name";
+        protected const string NameAtt = "Name";
         protected const string AttributeValue = "AttributeValue";
         protected const string Attribute = "Attribute";
         protected const string Signature = "Signature";

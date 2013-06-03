@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuCore.Util;
 using FubuLocalization;
@@ -18,6 +19,7 @@ namespace FubuSaml2
         public SamlResponse()
         {
             Attributes = new DictionaryKeyValues<object>(_attributes);
+            Subject = new Subject();
         }
 
         public void LogError(SamlError error)

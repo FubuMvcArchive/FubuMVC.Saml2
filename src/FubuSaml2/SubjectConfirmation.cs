@@ -8,6 +8,8 @@ namespace FubuSaml2
 {
     public class SubjectConfirmation : ReadsSamlXml
     {
+        private readonly IList<SubjectConfirmationData> _data = new List<SubjectConfirmationData>();
+
         public SubjectConfirmation()
         {
         }
@@ -18,30 +20,39 @@ namespace FubuSaml2
             ConfirmationData = buildData(element).ToArray();
         }
 
+        public Uri Method { get; set; }
+
+        public SamlName Name { get; set; }
+
+        public SubjectConfirmationData[] ConfirmationData
+        {
+            get { return _data.ToArray(); }
+            set
+            {
+                _data.Clear();
+                _data.AddRange(value);
+            }
+        }
+
         private IEnumerable<SubjectConfirmationData> buildData(XmlElement element)
         {
             foreach (XmlElement dataElement in element.GetElementsByTagName(SubjectConfirmationData, AssertionXsd))
             {
                 yield return new SubjectConfirmationData(dataElement);
             }
-        } 
-
-        public Uri Method { get; set; }
-
-        public SamlName Name { get; set; }
-
-        public SubjectConfirmationData[] ConfirmationData { get; set; }
+        }
 
         protected bool Equals(SubjectConfirmation other)
         {
-            return Equals(Method, other.Method) && Equals(Name, other.Name) && ConfirmationData.SequenceEqual(other.ConfirmationData);
+            return Equals(Method, other.Method) && Equals(Name, other.Name) &&
+                   ConfirmationData.SequenceEqual(other.ConfirmationData);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((SubjectConfirmation) obj);
         }
 
@@ -49,11 +60,16 @@ namespace FubuSaml2
         {
             unchecked
             {
-                var hashCode = (Method != null ? Method.GetHashCode() : 0);
+                int hashCode = (Method != null ? Method.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (ConfirmationData != null ? ConfirmationData.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        public void Add(SubjectConfirmationData data)
+        {
+            _data.Add(data);
         }
     }
 }

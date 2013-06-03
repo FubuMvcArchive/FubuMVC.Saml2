@@ -5,6 +5,7 @@ using FubuSaml2.Xml;
 
 namespace FubuSaml2
 {
+    // TODO -- add Method!
     public class Subject : ReadsSamlXml
     {
         public Subject()
@@ -29,6 +30,21 @@ namespace FubuSaml2
     
         // can have multiple confirmations
 
-        public SubjectConfirmation[] Confirmations { get; set; }
+        private readonly IList<SubjectConfirmation> _confirmations = new List<SubjectConfirmation>(); 
+
+        public SubjectConfirmation[] Confirmations
+        {
+            get { return _confirmations.ToArray(); }
+            set
+            {
+                _confirmations.Clear();
+                _confirmations.AddRange(value);
+            }
+        }
+
+        public void Add(SubjectConfirmation confirmation)
+        {
+            _confirmations.Add(confirmation);
+        }
     }
 }
