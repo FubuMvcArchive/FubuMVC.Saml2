@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>FubuMVC.Saml2</id>
+    <version>0.0</version>
+    <authors>Jeremy Miller, et al.</authors>
+    <owners>Jeremy Miller, Joshua Arnold</owners>
+    <licenseUrl>https://github.com/DarthFubuMVC/fubumvc/raw/master/license.txt</licenseUrl>
+    <projectUrl>http://mvc.fubu-project.org/</projectUrl>
+    <iconUrl>https://github.com/DarthFubuMVC/fubu-collateral/raw/master/Icons/FubuMvc_256.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Adds Saml2 support to a FubuMVC application</description>
+    <tags>fubumvc authentication saml2</tags>
+    <dependencies>
+      <dependency id="FubuMVC.Authentication" version="0.1.0.274" />
+      <dependency id="FubuSaml2" />
+    </dependencies>
+  </metadata>
+  <files xmlns="">
+    <file src="..\..\src\FubuMVC.Saml2\bin\release\FubuMVC.Saml2.dll" target="lib\net40" />
+  </files>
+</package>

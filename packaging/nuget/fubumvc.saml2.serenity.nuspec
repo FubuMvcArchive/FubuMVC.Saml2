@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>FubuMVC.Saml2.Serenity</id>
+    <version>0.0</version>
+    <authors>Jeremy Miller, et al.</authors>
+    <owners>Jeremy Miller, Joshua Arnold</owners>
+    <licenseUrl>https://github.com/DarthFubuMVC/fubumvc/raw/master/license.txt</licenseUrl>
+    <projectUrl>http://mvc.fubu-project.org/</projectUrl>
+    <iconUrl>https://github.com/DarthFubuMVC/fubu-collateral/raw/master/Icons/FubuMvc_256.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Storyteller2/Serenity helpers for testing FubuMVC.Saml2 on your project</description>
+    <tags>fubumvc authentication saml2</tags>
+    <dependencies>
+      <dependency id="Serenity" version="0.9.8.154" />
+      <dependency id="FubuMVC.Saml2" />
+    </dependencies>
+  </metadata>
+  <files xmlns="">
+    <file src="..\..\src\FubuMVC.Saml2.Serenity\bin\release\FubuMVC.Saml2.Serenity.dll" target="lib\net40" />
+  </files>
+</package>
