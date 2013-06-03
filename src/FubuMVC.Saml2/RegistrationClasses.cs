@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bottles;
 using Bottles.Diagnostics;
 using FubuCore;
+using FubuMVC.Authentication;
 using FubuMVC.Core;
 using FubuMVC.Core.Registration;
 using FubuSaml2.Certificates;
@@ -40,9 +41,12 @@ namespace FubuMVC.Saml2
     {
         public void Configure(BehaviorGraph graph)
         {
+            graph.Settings.Get<AuthenticationSettings>()
+                .Strategies.InsertFirst(new AuthenticationNode(typeof(SamlAuthenticationStrategy)));
+
             // TODO -- put the SamlAuthenticationRegistry first
             // TODO -- test with and without basic auth disabled
-            throw new NotImplementedException();
+
         }
     }
 
@@ -53,7 +57,9 @@ namespace FubuMVC.Saml2
         public Saml2VerificationActivator(IServiceLocator services)
         {
             _services = services;
+
         }
+
 
         public void Activate(IEnumerable<IPackageInfo> packages, IPackageLog log)
         {
@@ -62,4 +68,13 @@ namespace FubuMVC.Saml2
             // mark failure if no ISamlResponseHandler's are registered
         }
     }
+
 }
+
+
+
+
+
+
+
+
