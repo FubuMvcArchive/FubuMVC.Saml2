@@ -9,7 +9,6 @@ namespace FubuMVC.Saml2
     {
         public Saml2ServicesRegistry()
         {
-            // TODO -- UT's these
             SetServiceIfNone<ISamlDirector, SamlDirector>();
             SetServiceIfNone<ISamlResponseReader, SamlResponseReader>();
             SetServiceIfNone<ISamlResponseWriter, SamlResponseWriter>();

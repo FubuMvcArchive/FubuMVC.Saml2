@@ -52,15 +52,6 @@ namespace FubuSaml2.Testing.Encryption
             readResponse.Signed.ShouldEqual(SignatureStatus.Signed);
         }
 
-        /*
-         * TODO's
-         * 2.) Add encryption
-         * 3.) Add signatures
-         * 4.)
-         * 
-         */
-
-
         [Test]
         public void writes_the_issuer()
         {

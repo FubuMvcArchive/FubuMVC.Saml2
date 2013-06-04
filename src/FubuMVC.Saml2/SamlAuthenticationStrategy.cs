@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FubuCore.Binding;
 using FubuCore.Logging;
@@ -34,11 +35,17 @@ namespace FubuMVC.Saml2
         {
             AuthResult result = AuthResult.Failed();
 
-            // TODO -- make sure we've got error handling here
             _requestData.Value("SamlResponse", v => {
-                // TODO -- log here
-                var xml = v.RawValue as string;
-                ProcessSamlResponseXml(xml);
+                try
+                {
+                    var xml = v.RawValue as string;
+                    ProcessSamlResponseXml(xml);
+                }
+                catch (Exception e)
+                {
+                    _logger.Error("Saml Response handling failed", e);
+                    _director.FailedUser();
+                }
 
                 result = _director.Result();
             });

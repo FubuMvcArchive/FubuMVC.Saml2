@@ -1,4 +1,6 @@
-﻿using FubuCore.Binding;
+﻿using System;
+using FubuCore.Binding;
+using FubuCore.Logging;
 using FubuMVC.Authentication;
 using FubuSaml2;
 using FubuSaml2.Encryption;
@@ -76,6 +78,63 @@ namespace FubuMVC.Saml2.Testing
         public void should_have_processed_the_saml_xml()
         {
             ClassUnderTest.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void should_return_the_result_from_the_director()
+        {
+            theResult.ShouldBeTheSameAs(theDirectoryResult);
+        }
+    }
+
+    [TestFixture]
+    public class when_try_to_apply_with_saml_response_and_saml_fails : InteractionContext<SamlAuthenticationStrategy>
+    {
+        private AuthResult theDirectoryResult;
+        private InMemoryRequestData theRequestData;
+        private string theResponseXml;
+        private AuthResult theResult;
+        private NotImplementedException theException;
+
+        protected override void beforeEach()
+        {
+            theDirectoryResult = new AuthResult();
+            MockFor<ISamlDirector>().Stub(x => x.Result()).Return(theDirectoryResult);
+
+
+            theResponseXml = "<Response />";
+
+            theRequestData = new InMemoryRequestData();
+            theRequestData["SamlResponse"] = theResponseXml;
+            theRequestData.Value("SamlResponse").ShouldNotBeNull();
+
+            Services.Inject<IRequestData>(theRequestData);
+
+            Services.PartialMockTheClassUnderTest();
+
+            theException = new NotImplementedException();
+
+            ClassUnderTest.Expect(x => x.ProcessSamlResponseXml(theResponseXml)).Throw(theException);
+
+            theResult = ClassUnderTest.TryToApply();
+        }
+
+        [Test]
+        public void should_have_processed_the_saml_xml()
+        {
+            ClassUnderTest.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void should_mark_the_authentication_attempt_as_a_failure()
+        {
+            MockFor<ISamlDirector>().AssertWasCalled(x => x.FailedUser());
+        }
+
+        [Test]
+        public void logs_teh_exception()
+        {
+            MockFor<ILogger>().AssertWasCalled(x => x.Error("Saml Response handling failed", theException));
         }
 
         [Test]
