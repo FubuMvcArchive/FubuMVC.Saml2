@@ -4,7 +4,7 @@ using HtmlTags;
 
 namespace FubuMVC.Saml2
 {
-    public class SamlResponseRedirector
+    public class SamlResponseRedirector : ISamlResponseRedirector
     {
         private readonly ISamlResponseWriter _writer;
 
@@ -19,24 +19,5 @@ namespace FubuMVC.Saml2
 
             return new SamlResponseRedirectionDocument(responseString, response.Destination.ToString());
         } 
-    }
-
-    public class SamlResponseRedirectionDocument : HtmlDocument
-    {
-        public SamlResponseRedirectionDocument(string response, string destination)
-        {
-            Title = "Saml2 Response Redirection";
-
-            var form = new FormTag(destination);
-
-            Push(form);
-
-            var hiddenTag = new HiddenTag().Attr("name", "SamlResponse")
-                                           .Attr("value", response);
-
-            Add(hiddenTag);
-
-            Pop();
-        }
     }
 }

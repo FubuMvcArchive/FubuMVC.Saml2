@@ -18,6 +18,19 @@ namespace FubuMVC.Saml2.Testing
         }
 
         [Test]
+        public void IAssertionXmlEncryptor()
+        {
+            registeredTypeIs<IAssertionXmlEncryptor, AssertionXmlEncryptor>();
+        }
+
+        [Test]
+        public void ISamlResponseXmlSigner()
+        {
+            registeredTypeIs<ISamlResponseXmlSigner, SamlResponseXmlSigner>();
+        }
+
+
+        [Test]
         public void ISamlDirector()
         {
             registeredTypeIs<ISamlDirector, SamlDirector>();
@@ -27,6 +40,12 @@ namespace FubuMVC.Saml2.Testing
         public void ISamlResponseReader()
         {
             registeredTypeIs<ISamlResponseReader, SamlResponseReader>();
+        }
+
+        [Test]
+        public void ISamlResponseRedirector()
+        {
+            registeredTypeIs<ISamlResponseRedirector, SamlResponseRedirector>();
         }
 
         [Test]

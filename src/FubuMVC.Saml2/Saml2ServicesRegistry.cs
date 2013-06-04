@@ -16,6 +16,9 @@ namespace FubuMVC.Saml2
             SetServiceIfNone<ICertificateService, CertificateService>();
             SetServiceIfNone<IAssertionXmlDecryptor, AssertionXmlDecryptor>();
             SetServiceIfNone<ICertificateLoader, CertificateLoader>();
+            SetServiceIfNone<ISamlResponseRedirector, SamlResponseRedirector>();
+            SetServiceIfNone<ISamlResponseXmlSigner, SamlResponseXmlSigner>();
+            SetServiceIfNone<IAssertionXmlEncryptor, AssertionXmlEncryptor>();
 
             AddService<IActivator, Saml2VerificationActivator>();
         }

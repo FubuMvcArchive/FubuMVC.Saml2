@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuMVC.Saml2.Testing", "Fu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuMVC.Saml2.Serenity", "FubuMVC.Saml2.Serenity\FubuMVC.Saml2.Serenity.csproj", "{34D0000E-BEA6-4105-9DAC-2249F2351C34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuMVC.Saml2.Storyteller", "FubuMVC.Saml2.Storyteller\FubuMVC.Saml2.Storyteller.csproj", "{2B078EF5-17CE-4422-A147-9891B9D5678D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{34D0000E-BEA6-4105-9DAC-2249F2351C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D0000E-BEA6-4105-9DAC-2249F2351C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D0000E-BEA6-4105-9DAC-2249F2351C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B078EF5-17CE-4422-A147-9891B9D5678D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B078EF5-17CE-4422-A147-9891B9D5678D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B078EF5-17CE-4422-A147-9891B9D5678D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B078EF5-17CE-4422-A147-9891B9D5678D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

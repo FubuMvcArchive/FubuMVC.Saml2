@@ -128,4 +128,42 @@ namespace FubuMVC.Saml2.Testing
             theHandlers[1].AssertWasNotCalled(x => x.Handle(theDirector, theResponse));
         }
     }
+
+    [TestFixture]
+    public class when_processing_the_saml_xml_and_no_handler_matches : InteractionContext<SamlAuthenticationStrategy>
+    {
+        private ISamlValidationRule[] theRules;
+        private SamlResponse theResponse;
+        private string theXml;
+        private ISamlResponseHandler[] theHandlers;
+
+        protected override void beforeEach()
+        {
+            theRules = Services.CreateMockArrayFor<ISamlValidationRule>(5);
+
+            theResponse = new SamlResponse();
+            theXml = "<Response />";
+
+            MockFor<ISamlResponseReader>().Stub(x => x.Read(theXml)).Return(theResponse);
+
+            theHandlers = Services.CreateMockArrayFor<ISamlResponseHandler>(3);
+
+            ClassUnderTest.ProcessSamlResponseXml(theXml);
+        }
+
+        [Test]
+        public void should_run_all_the_validation_rules()
+        {
+            theRules.Each(rule =>
+            {
+                rule.AssertWasCalled(x => x.Validate(theResponse));
+            });
+        }
+
+        [Test]
+        public void fails_gracefully()
+        {
+            MockFor<ISamlDirector>().AssertWasCalled(x => x.FailedUser());
+        }
+    }
 }

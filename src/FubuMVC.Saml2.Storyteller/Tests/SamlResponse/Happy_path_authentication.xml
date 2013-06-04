@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Test name="Happy path authentication" lifecycle="Acceptance">
+  <AudienceHandlers>
+    <Audience isStep="True" audience="foo:1" />
+  </AudienceHandlers>
+  <SamlWorkflow>
+    <ReceiveSamlResponse isStep="True">
+      <SamlResponse>
+        <IssuerIs isStep="True" issuer="fake:saml:issuer" />
+        <AddConfirmation isStep="True" method="urn:oasis:names:tc:SAML:2.0:cm:bearer" recipient="anything:guy" minutes="5" />
+        <RestrictAudience isStep="True" uri="foo:1" />
+        <TheNameIs isStep="True" type="NameID" format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" name="jeremy" />
+        <ResponseIsValid isStep="True" minutesAgo="5" minutesUntil="5" />
+        <StatusIs isStep="True" status="urn:oasis:names:tc:SAML:2.0:status:Success" />
+      </SamlResponse>
+    </ReceiveSamlResponse>
+    <IsOnTheHomePage isStep="True" />
+  </SamlWorkflow>
+</Test>

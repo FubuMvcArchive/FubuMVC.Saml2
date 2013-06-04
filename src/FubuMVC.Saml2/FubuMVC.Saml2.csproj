@@ -68,9 +68,11 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BasicSamlResponseHandler.cs" />
     <Compile Include="ISamlDirector.cs" />
     <Compile Include="ISamlResponseHandler.cs" />
     <Compile Include="EnvironmentTestExtensions.cs" />
+    <Compile Include="ISamlResponseRedirector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saml2Extensions.cs" />
     <Compile Include="Saml2AuthenticationRegistration.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Saml2VerificationActivator.cs" />
     <Compile Include="SamlAuthenticationStrategy.cs" />
     <Compile Include="SamlDirector.cs" />
+    <Compile Include="SamlResponseRedirectionDocument.cs" />
     <Compile Include="SamlResponseRedirector.cs" />
     <Compile Include="SamlResponseSettings.cs" />
     <Compile Include="SamlResponseValidationRulesRegistration.cs" />

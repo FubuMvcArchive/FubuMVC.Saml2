@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<Project xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Options>
+    <FileTemplate>using NUnit.Framework;
+using StoryTeller.Execution;
+
+namespace StoryTellerTestHarness
+{
+    [TestFixture, Explicit]
+    public class Template
+    {
+        private ProjectTestRunner runner;
+
+        [TestFixtureSetUp]
+        public void SetupRunner()
+        {
+            runner = new ProjectTestRunner(@"$PROJECT_FILE$");
+        }
+
+$METHODS$
+
+        [TestFixtureTearDown]
+        public void TeardownRunner()
+        {
+            runner.Dispose();
+        }
+    }
+}</FileTemplate>
+    <MethodTemplate>        [Test]
+        public void $CLEAN_TEST_NAME$()
+        {
+            runner.RunAndAssertTest("$TEST_PATH$");
+        }</MethodTemplate>
+    <TargetFile>StoryTellerDebug.cs</TargetFile>
+  </Options>
+  <BinaryFolder>bin\debug</BinaryFolder>
+  <NumberOfTestRetries>0</NumberOfTestRetries>
+  <TestFolder>Tests</TestFolder>
+  <FileName>C:\code\FubuMVC.Saml2\src\FubuMVC.Saml2.Storyteller\storyteller.xml</FileName>
+  <TimeoutInSeconds>60</TimeoutInSeconds>
+  <SystemTypeName>FubuMVC.Saml2.Storyteller.SamlStorytellerSystem, FubuMVC.Saml2.Storyteller</SystemTypeName>
+  <Name>FubuMVC.Saml2</Name>
+</Project>

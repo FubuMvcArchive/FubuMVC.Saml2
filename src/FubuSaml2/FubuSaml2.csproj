@@ -59,6 +59,7 @@
     <Compile Include="Certificates\ICertificateLoader.cs" />
     <Compile Include="Certificates\ICertificateService.cs" />
     <Compile Include="Certificates\InMemoryCertificate.cs" />
+    <Compile Include="Certificates\InMemoryCertificateLoader.cs" />
     <Compile Include="Certificates\ISamlCertificateRepository.cs" />
     <Compile Include="Certificates\SamlCertificate.cs" />
     <Compile Include="Certificates\X509CertificateWrapper.cs" />

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FubuCore.Binding;
+using FubuCore.Logging;
 using FubuMVC.Authentication;
+using FubuSaml2;
 using FubuSaml2.Encryption;
 using FubuSaml2.Validation;
 
@@ -15,14 +17,16 @@ namespace FubuMVC.Saml2
         private readonly ISamlDirector _director;
         private readonly ISamlResponseReader _reader;
         private readonly IEnumerable<ISamlValidationRule> _rules;
+        private readonly ILogger _logger;
         private readonly IEnumerable<ISamlResponseHandler> _strategies;
 
-        public SamlAuthenticationStrategy(IRequestData requestData, ISamlDirector director, ISamlResponseReader reader, IEnumerable<ISamlValidationRule> rules, IEnumerable<ISamlResponseHandler> strategies)
+        public SamlAuthenticationStrategy(IRequestData requestData, ISamlDirector director, ISamlResponseReader reader, IEnumerable<ISamlValidationRule> rules, ILogger logger, IEnumerable<ISamlResponseHandler> strategies)
         {
             _requestData = requestData;
             _director = director;
             _reader = reader;
             _rules = rules;
+            _logger = logger;
             _strategies = strategies;
         }
 
@@ -48,10 +52,16 @@ namespace FubuMVC.Saml2
 
             _rules.Each(x => x.Validate(response));
 
-            // TODO -- Make sure there's a default one in here?
-            var handler = _strategies.First(x => x.CanHandle(response));
-            // TODO -- do something if we cannot select a handler.  Default message maybe
-            handler.Handle(_director, response);
+            var handler = _strategies.FirstOrDefault(x => x.CanHandle(response));
+            if (handler == null)
+            {
+                _logger.InfoMessage(() => new SamlAuthenticationFailed(response));
+                _director.FailedUser();                
+            }
+            else
+            {
+                handler.Handle(_director, response);
+            }
         }
 
         public bool Authenticate(LoginRequest request)
@@ -59,4 +69,6 @@ namespace FubuMVC.Saml2
             return false;
         }
     }
+
+
 }

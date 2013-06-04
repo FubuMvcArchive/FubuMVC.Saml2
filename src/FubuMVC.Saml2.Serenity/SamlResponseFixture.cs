@@ -3,37 +3,55 @@ using System.ComponentModel;
 using FubuCore.Dates;
 using FubuSaml2;
 using FubuSaml2.Certificates;
+using OpenQA.Selenium;
+using Serenity.Fixtures;
 using StoryTeller;
 using StoryTeller.Engine;
 using FubuSaml2.Xml;
 
 namespace FubuMVC.Saml2.Serenity
 {
-    public class SamlResponseFixture : Fixture
+    public class SamlResponseFixture : ScreenFixture
     {
-        private readonly SamlResponse _response;
+        private SamlResponse _response;
         private DateTime _now;
         private SubjectConfirmation _confirmation;
 
         public SamlResponseFixture()
         {
             AddSelectionValues("SamlStatus", SamlStatus.Success.Uri.ToString(), SamlStatus.RequesterError.Uri.ToString(), SamlStatus.ResponderError.Uri.ToString());
-
-            _response = new SamlResponse();
-            _response.Status = SamlStatus.Success;
-            _response.Conditions = new ConditionGroup();
-            _response.Authentication = new AuthenticationStatement();
         }
 
-        public override void SetUp(ITestContext context)
+        protected override void beforeRunning()
         {
+            var destination = Retrieve<SamlDestination>();
+
+
+            _response = new SamlResponse
+            {
+                Id = Guid.NewGuid().ToString(),
+                Status = SamlStatus.Success,
+                Conditions = new ConditionGroup(),
+                Authentication = new AuthenticationStatement(),
+                Destination = (destination.DestinationUrl ?? Application.RootUrl).ToUri()
+            };
+
             _now = Retrieve<ISystemTime>().UtcNow();
             _response.IssueInstant = new DateTimeOffset(_now);
         }
 
         public override void TearDown()
         {
-            Context.Store(_response);
+            SamlEndpoint.SamlResponse = _response;
+
+            Navigation.NavigateTo<SamlEndpoint>(x => x.get_saml_redirect());
+            //IWebElement element = Driver.FindElement(By.Name("SamlResponse"));
+
+            //var writer = new SamlResponseXmlWriter(_response);
+
+            //element.SendKeys(writer.Write().OuterXml);
+
+            //Driver.FindElement(By.Id("saml-submit")).Click();
         }
 
         [FormatAs("The issuer is {issuer}")]
