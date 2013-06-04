@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Test name="Happy path authentication" lifecycle="Regression">
+<Test name="Successful login marks the authentication ticket" lifecycle="Regression">
   <AudienceHandlers>
     <Audience isStep="True" audience="foo:1" />
   </AudienceHandlers>
@@ -14,6 +14,9 @@
         <StatusIs isStep="True" status="urn:oasis:names:tc:SAML:2.0:status:Success" />
       </SamlResponse>
     </ReceiveSamlResponse>
+    <IsOnTheHomePage isStep="True" />
+    <Comment><![CDATA[The user is already authenticated, so the user should be able to refresh the home page without being redirected to the login page]]></Comment>
+    <GoHome isStep="True" />
     <IsOnTheHomePage isStep="True" />
   </SamlWorkflow>
 </Test>

@@ -16,7 +16,7 @@ namespace FubuMVC.Saml2.Testing
         {
             var result = ClassUnderTest.Result();
             result.Success.ShouldBeFalse();
-            result.Continuation.AssertWasTransferedTo(new LoginRequest
+            result.Continuation.AssertWasRedirectedTo(new LoginRequest
             {
                 Message = SamlValidationKeys.UnableToValidationSamlResponse.ToString()
             });
@@ -31,7 +31,7 @@ namespace FubuMVC.Saml2.Testing
 
             var result = ClassUnderTest.Result();
             result.Success.ShouldBeFalse();
-            result.Continuation.AssertWasTransferedTo(new LoginRequest
+            result.Continuation.AssertWasRedirectedTo(new LoginRequest
             {
                 Message = SamlValidationKeys.UnableToValidationSamlResponse.ToString()
             });

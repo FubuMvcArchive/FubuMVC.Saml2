@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Test name="Happy path authentication" lifecycle="Regression">
+<Test name="Saml handlers reject the authentication attempt gracefully" lifecycle="Regression">
   <AudienceHandlers>
     <Audience isStep="True" audience="foo:1" />
   </AudienceHandlers>
@@ -8,12 +8,12 @@
       <SamlResponse>
         <IssuerIs isStep="True" issuer="fake:saml:issuer" />
         <AddConfirmation isStep="True" method="urn:oasis:names:tc:SAML:2.0:cm:bearer" recipient="anything:guy" minutes="5" />
-        <RestrictAudience isStep="True" uri="foo:1" />
+        <RestrictAudience isStep="True" uri="different:audience" />
         <TheNameIs isStep="True" type="NameID" format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" name="jeremy" />
         <ResponseIsValid isStep="True" minutesAgo="5" minutesUntil="5" />
         <StatusIs isStep="True" status="urn:oasis:names:tc:SAML:2.0:status:Success" />
       </SamlResponse>
     </ReceiveSamlResponse>
-    <IsOnTheHomePage isStep="True" />
+    <IsOnTheLoginPage isStep="True" />
   </SamlWorkflow>
 </Test>

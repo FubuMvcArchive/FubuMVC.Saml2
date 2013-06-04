@@ -21,7 +21,7 @@ namespace FubuMVC.Saml2
             {
                 Success = false,
                 Continuation =
-                    FubuContinuation.TransferTo(new LoginRequest
+                    FubuContinuation.RedirectTo(new LoginRequest
                     {
                         Message = SamlValidationKeys.UnableToValidationSamlResponse
                     })

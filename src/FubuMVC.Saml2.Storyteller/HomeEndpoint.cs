@@ -24,6 +24,8 @@ namespace FubuMVC.Saml2.Storyteller
 
             document.Add("h1").Text("This is the login page");
 
+            document.Add("div").Id("message").Text(request.Message);
+
             return document;
         }
 

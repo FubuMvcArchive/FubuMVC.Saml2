@@ -36,6 +36,12 @@ namespace FubuMVC.Saml2.Serenity
             return true;
         }
 
+        [FormatAs("Go to the home page again")]
+        public void GoHome()
+        {
+            Navigation.NavigateToHome();
+        }
+
         [FormatAs("The browser is on relative url {url}")]
         public bool IsOnPage(string url)
         {
