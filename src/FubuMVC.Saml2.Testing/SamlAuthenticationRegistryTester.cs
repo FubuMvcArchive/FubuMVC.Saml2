@@ -19,8 +19,7 @@ namespace FubuMVC.Saml2.Testing
         private AuthResult theResult;
 
         protected override void beforeEach()
-        {
-            theRequestData = new InMemoryRequestData();
+        {            theRequestData = new InMemoryRequestData();
             Services.Inject<IRequestData>(theRequestData);
 
             Services.PartialMockTheClassUnderTest();
@@ -63,8 +62,8 @@ namespace FubuMVC.Saml2.Testing
             theResponseXml = "<Response />";
 
             theRequestData = new InMemoryRequestData();
-            theRequestData["SamlResponse"] = theResponseXml;
-            theRequestData.Value("SamlResponse").ShouldNotBeNull();
+            theRequestData[SamlAuthenticationStrategy.SamlResponseKey] = theResponseXml;
+            theRequestData.Value(SamlAuthenticationStrategy.SamlResponseKey).ShouldNotBeNull();
 
             Services.Inject<IRequestData>(theRequestData);
 
@@ -105,8 +104,8 @@ namespace FubuMVC.Saml2.Testing
             theResponseXml = "<Response />";
 
             theRequestData = new InMemoryRequestData();
-            theRequestData["SamlResponse"] = theResponseXml;
-            theRequestData.Value("SamlResponse").ShouldNotBeNull();
+            theRequestData[SamlAuthenticationStrategy.SamlResponseKey] = theResponseXml;
+            theRequestData.Value(SamlAuthenticationStrategy.SamlResponseKey).ShouldNotBeNull();
 
             Services.Inject<IRequestData>(theRequestData);
 

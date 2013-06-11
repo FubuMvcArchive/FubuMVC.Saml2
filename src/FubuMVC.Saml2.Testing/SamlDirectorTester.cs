@@ -19,7 +19,7 @@ namespace FubuMVC.Saml2.Testing
             result.Continuation.AssertWasRedirectedTo(new LoginRequest
             {
                 Message = SamlValidationKeys.UnableToValidationSamlResponse.ToString()
-            });
+            },"GET");
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace FubuMVC.Saml2.Testing
             result.Continuation.AssertWasRedirectedTo(new LoginRequest
             {
                 Message = SamlValidationKeys.UnableToValidationSamlResponse.ToString()
-            });
+            },"GET");
         }
 
         [Test]

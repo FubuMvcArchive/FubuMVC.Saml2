@@ -12,7 +12,7 @@ namespace FubuMVC.Saml2
 {
     public class SamlAuthenticationStrategy : IAuthenticationStrategy
     {
-        protected const string SamlResponseKey = "SAMLResponse";
+        public const string SamlResponseKey = "SAMLResponse";
         public static readonly AuthResult DoesNotApply = new AuthResult{Success = false};
 
         private readonly IRequestData _requestData;

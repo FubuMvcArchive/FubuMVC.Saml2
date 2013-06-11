@@ -33,7 +33,7 @@ namespace FubuMVC.Saml2.Serenity
         {
             var document = new XmlDocument();
 
-            var xml = _requestData.Value("SamlResponse") as string;
+            var xml = _requestData.Value(SamlAuthenticationStrategy.SamlResponseKey) as string;
             
             document.LoadXml(xml);
 
@@ -60,7 +60,7 @@ namespace FubuMVC.Saml2.Serenity
             var form = new FormTag(_urls.UrlFor<SamlEndpoint>(x => x.post_test_saml()));
 
             document.Push(form);
-            var textarea = form.Add("textarea").Attr("name", "SamlResponse").Attr("rows", 20).Attr("cols", "100");
+            var textarea = form.Add("textarea").Attr("name", SamlAuthenticationStrategy.SamlResponseKey).Attr("rows", 20).Attr("cols", "100");
             if (SamlResponse != null)
             {
                 var xml = _writer.Write(SamlResponse);
