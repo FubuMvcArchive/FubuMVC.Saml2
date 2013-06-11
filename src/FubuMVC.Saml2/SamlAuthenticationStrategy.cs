@@ -12,6 +12,7 @@ namespace FubuMVC.Saml2
 {
     public class SamlAuthenticationStrategy : IAuthenticationStrategy
     {
+        protected const string SamlResponseKey = "SAMLResponse";
         public static readonly AuthResult DoesNotApply = new AuthResult{Success = false};
 
         private readonly IRequestData _requestData;
@@ -35,7 +36,7 @@ namespace FubuMVC.Saml2
         {
             AuthResult result = AuthResult.Failed();
 
-            _requestData.Value("SamlResponse", v => {
+            _requestData.Value(SamlResponseKey, v => {
                 try
                 {
                     var xml = v.RawValue as string;
@@ -63,7 +64,7 @@ namespace FubuMVC.Saml2
             if (handler == null)
             {
                 _logger.InfoMessage(() => new SamlAuthenticationFailed(response));
-                _director.FailedUser();                
+                _director.FailedUser();
             }
             else
             {
