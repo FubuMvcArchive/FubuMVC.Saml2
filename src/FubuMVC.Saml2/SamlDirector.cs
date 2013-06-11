@@ -24,7 +24,7 @@ namespace FubuMVC.Saml2
                     FubuContinuation.RedirectTo(new LoginRequest
                     {
                         Message = SamlValidationKeys.UnableToValidationSamlResponse
-                    })
+                    }, "GET")
             };
         }
 
