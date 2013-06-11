@@ -45,7 +45,7 @@ namespace FubuMVC.Saml2.Serenity
             SamlEndpoint.SamlResponse = _response;
 
             Navigation.NavigateTo<SamlEndpoint>(x => x.get_saml_redirect());
-            //IWebElement element = Driver.FindElement(By.Name("SamlResponse"));
+            //IWebElement element = Driver.FindElement(By.Name(SamlAuthenticationStrategy.SamlResponseKey));
 
             //var writer = new SamlResponseXmlWriter(_response);
 
