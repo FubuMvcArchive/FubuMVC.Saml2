@@ -12,7 +12,7 @@ namespace FubuMVC.Saml2
 
             Push(form);
 
-            var hiddenTag = new HiddenTag().Attr("name", "SamlResponse")
+            var hiddenTag = new HiddenTag().Attr("name", SamlAuthenticationStrategy.SamlResponseKey)
                                            .Attr("value", response);
 
             Add(hiddenTag);
