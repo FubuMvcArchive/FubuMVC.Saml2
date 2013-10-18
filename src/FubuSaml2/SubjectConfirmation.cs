@@ -17,6 +17,7 @@ namespace FubuSaml2
         public SubjectConfirmation(XmlElement element)
         {
             Method = element.GetAttribute(MethodAtt).ToUri();
+            Name = new SamlName(element);
             ConfirmationData = buildData(element).ToArray();
         }
 

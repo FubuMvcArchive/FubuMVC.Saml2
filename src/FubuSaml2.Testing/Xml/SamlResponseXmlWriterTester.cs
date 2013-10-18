@@ -99,6 +99,14 @@ namespace FubuSaml2.Testing.Xml
                 .ShouldHaveTheSameElementsAs(theOriginalResponse.Subject.Confirmations.Select(x => x.Method));
 
         }
+        
+        [Test]
+        public void writes_the_subject_confirmation_name()
+        {
+            theSecondResponse.Subject.Confirmations.Select(x => x.Name)
+                .ShouldHaveTheSameElementsAs(theOriginalResponse.Subject.Confirmations.Select(x => x.Name));
+
+        }
 
         [Test]
         public void writes_the_subject_confirmation_data()
