@@ -134,6 +134,15 @@ namespace FubuSaml2.Xml
 
             _response.Subject.Confirmations.Each(confirmation => {
                 subject.Push(SubjectConfirmation).Attr(MethodAtt, confirmation.Method);
+                
+                var confirmationName = confirmation.Name;
+                if(confirmationName != null)
+                {
+                    subject.Add(confirmationName.Type.ToString())
+                          .Text(confirmationName.Value)
+                          .Attr(FormatAtt, confirmationName.Format.Uri);
+                }
+
                 confirmation.ConfirmationData.Each(data => {
                    subject.Add(SubjectConfirmationData)
                               .Attr(NotOnOrAfterAtt, data.NotOnOrAfter)

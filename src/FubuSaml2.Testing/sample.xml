@@ -34,6 +34,7 @@
   <saml:Subject xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
    <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" NameQualifier="urn:idp:fakecompany:nbpartgenoutbds20:uat" SPNameQualifier="https://qa2.online.com/qa2/sso/saml" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">aa50045c6d0a233e7c20003d7d0000aa33</saml:NameID>
    <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+    <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified">aa50045c6d0a233e7c20003d7d0000aa33</saml:NameID>
     <saml:SubjectConfirmationData NotOnOrAfter="2012-11-01T18:19:04Z" Recipient="https://qa2.online.com/qa2/sso/saml" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"/>
    </saml:SubjectConfirmation>
   </saml:Subject>
