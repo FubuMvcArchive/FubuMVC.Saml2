@@ -22,6 +22,7 @@ namespace FubuSaml2
 
             var context = element.FindChild(AuthnContext, AssertionXsd);
             DeclarationReference = context.ReadChildText<Uri>(AuthnContextDeclRef);
+            ClassReference = context.ReadChildText<Uri>(AuthnContextClassRef);
         }
 
         public DateTimeOffset Instant { get; set; }
@@ -29,8 +30,7 @@ namespace FubuSaml2
         public DateTimeOffset? SessionNotOnOrAfter { get; set; }
 
         // TODO -- support AuthenticatingAuthority
-        // TODO -- support ClassReference
-        //public Uri ClassReference { get; set; }
+        public Uri ClassReference { get; set; }
         public Uri DeclarationReference { get; set; }
 
         // TODO -- support declaration

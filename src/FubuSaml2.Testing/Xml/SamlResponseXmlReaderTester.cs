@@ -134,5 +134,12 @@ namespace FubuSaml2.Testing.Xml
             theResponse.Authentication.DeclarationReference
                        .ShouldEqual("urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport".ToUri());
         }
+        
+        [Test]
+        public void reads_the_authentication_class_context()
+        {
+            theResponse.Authentication.ClassReference
+                       .ShouldEqual("urn:oasis:names:tc:SAML:2.0:ac:classes:Password".ToUri());
+        }
     }
 }

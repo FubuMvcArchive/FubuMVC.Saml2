@@ -7,6 +7,8 @@
         public const string EncryptedXsd = "http://www.w3.org/2001/04/xmlenc#";
 
         protected const string ID = "ID";
+        protected const string ResponseIdPrefix = "SamlResponse-";
+        protected const string AssertionIdPrefix = "SamlAssertion-";
         protected const string Destination = "Destination";
         protected const string IssueInstant = "IssueInstant";
         protected const string StatusCode = "StatusCode";
@@ -37,6 +39,7 @@
         protected const string SessionNotOnOrAfterAtt = "SessionNotOnOrAfter";
         protected const string AuthnContext = "AuthnContext";
         protected const string AuthnContextDeclRef = "AuthnContextDeclRef";
+        protected const string AuthnContextClassRef = "AuthnContextClassRef";
         protected const string NameFormatAtt = "NameFormat";
         protected const string AssertionElem = "Assertion";
         protected const string EncryptedAssertion = "EncryptedAssertion";
