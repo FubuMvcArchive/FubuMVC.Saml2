@@ -35,7 +35,7 @@ namespace FubuSaml2.Testing.Xml
         {
             var assertion = document.DocumentElement.FindChild("Assertion");
             assertion.ShouldNotBeNull();
-            assertion.GetAttribute("ID").ShouldEqual("A5092bc640a235880200023f80002aa33");
+            assertion.GetAttribute("ID").ShouldEqual("SamlAssertion-A5092bc640a235880200023f80002aa33");
             assertion.GetAttribute("IssueInstant").ShouldEqual("2012-11-01T18:16:04Z");
 
             var issuer = assertion.FirstChild;
@@ -70,7 +70,7 @@ namespace FubuSaml2.Testing.Xml
         [Test]
         public void writes_the_Id()
         {
-            theSecondResponse.Id.ShouldEqual(theOriginalResponse.Id);
+            theSecondResponse.Id.ShouldEqual("SamlResponse-"+theOriginalResponse.Id);
         }
 
         [Test]
