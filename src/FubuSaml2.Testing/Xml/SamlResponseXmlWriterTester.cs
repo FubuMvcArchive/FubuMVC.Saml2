@@ -153,6 +153,13 @@ namespace FubuSaml2.Testing.Xml
             theSecondResponse.Authentication.DeclarationReference
                              .ShouldEqual(theOriginalResponse.Authentication.DeclarationReference);
         }
+        
+        [Test]
+        public void writes_the_authentication_context_class_reference()
+        {
+            theSecondResponse.Authentication.ClassReference
+                             .ShouldEqual(theOriginalResponse.Authentication.ClassReference);
+        }
 
         [Test]
         public void writes_the_attributes()

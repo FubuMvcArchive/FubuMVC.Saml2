@@ -54,13 +54,13 @@ namespace FubuSaml2.Xml
 
         private void writeAttributes()
         {
-            var root = start(AttributeStatement);
+            var root = _assertion.Child(AttributeStatement);
             var keys = _response.Attributes.GetKeys();
 
             keys.Each(key => {
                 var attributeElement = root.Child(Attribute)
                     .Attr(NameAtt, key)
-                    .Attr(NameFormatAtt, "urn:oasis:names:tc:SAML:2.0:attrname-format:basic".ToUri());
+                    .Attr(NameFormatAtt, "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified".ToUri());
                 
                 
                 var value = _response.Attributes.Get(key);
@@ -96,6 +96,10 @@ namespace FubuSaml2.Xml
             {
                 authXmlStack.Add(AuthnContextDeclRef).Text(statement.DeclarationReference.ToString());
             }
+            if (statement.ClassReference != null)
+            {
+                authXmlStack.Add(AuthnContextClassRef).Text(statement.ClassReference.ToString());
+            }
         }
 
         private void writeConditions()
@@ -113,10 +117,11 @@ namespace FubuSaml2.Xml
         private void writeAssertion()
         {
             _assertion = start(AssertionElem)
-                .Attr(ID, _response.Id)
+                .Attr(ID, AssertionIdPrefix + _response.Id)
                 .Attr(IssueInstant, _response.IssueInstant);
 
             _assertion.Push(Issuer).InnerText = _response.Issuer.ToString();
+
             _assertion.Pop();
         }
 
@@ -173,7 +178,7 @@ namespace FubuSaml2.Xml
 
         private void writeRootAttributes()
         {
-            _root.SetAttribute(ID, _response.Id);
+            _root.SetAttribute(ID, ResponseIdPrefix+_response.Id);
             _root.SetAttribute(Destination, _response.Destination.ToString());
             _root.SetAttribute(IssueInstant, XmlConvert.ToString(_response.IssueInstant));
         }

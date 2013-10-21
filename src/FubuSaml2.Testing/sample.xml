@@ -46,6 +46,7 @@
   <saml:AuthnStatement AuthnInstant="2012-11-01T18:15:47Z" SessionIndex="21171a497ffc16b87b8179afd5f9b69fc3f8cd8c" SessionNotOnOrAfter="2012-11-02T04:15:47Z" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
    <saml:AuthnContext xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
     <saml:AuthnContextDeclRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextDeclRef>
+    <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
    </saml:AuthnContext>
   </saml:AuthnStatement>
   <saml:AttributeStatement xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
