@@ -39,7 +39,7 @@ namespace FubuSaml2.Testing.Xml
             assertion.GetAttribute("IssueInstant").ShouldEqual("2012-11-01T18:16:04Z");
 
             var issuer = assertion.FirstChild;
-            issuer.Name.ShouldEqual("Issuer");
+            issuer.Name.ShouldEqual("saml2:Issuer");
             issuer.InnerText.ShouldEqual("urn:idp:fakecompany:nbpartgenoutbds20:uat");
         }
 

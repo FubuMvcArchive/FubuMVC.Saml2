@@ -19,7 +19,7 @@ namespace FubuSaml2.Xml
 
             var nameTable = new NameTable();
             var namespaceManager = new XmlNamespaceManager(nameTable);
-            namespaceManager.AddNamespace("saml", AssertionXsd);
+            namespaceManager.AddNamespace("saml2", AssertionXsd);
             namespaceManager.AddNamespace("samlp", ProtocolXsd);
 
             _document = new XmlDocument(nameTable);
@@ -29,9 +29,9 @@ namespace FubuSaml2.Xml
             _root.SetAttribute("Version", "2.0");
         }
 
-        private XmlElementStack start(string name, string xsd = AssertionXsd)
+        private XmlElementStack start(string name, string xsd = AssertionXsd, string prefix = AssertionPrefix)
         {
-            var stack = new XmlElementStack(_document, xsd);
+            var stack = new XmlElementStack(_document, xsd, prefix);
             stack.Push(name);
 
             return stack;
@@ -70,12 +70,12 @@ namespace FubuSaml2.Xml
                 if (enumerable != null)
                 {
                     enumerable.Each(x => {
-                        attributeElement.Add(AttributeValue).InnerText = x;
+                        attributeElement.Add(AttributeValue, null, "saml2").InnerText = x;
                     });
                 }
                 else
                 {
-                    attributeElement.Add(AttributeValue).InnerText = value as string;
+                    attributeElement.Add(AttributeValue, null, "saml2").InnerText = value as string;
                 }
             });
         }
@@ -170,7 +170,7 @@ namespace FubuSaml2.Xml
                 throw new InvalidOperationException("Status is missing");
             }
 
-            start("Status", ProtocolXsd)
+            start("Status", ProtocolXsd, ProtocolPrefix)
                 .Push("StatusCode")
                 .Attr("Value", _response.Status.Uri)
                 .Attr("Version", "2.0");
