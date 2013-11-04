@@ -14,9 +14,9 @@ namespace FubuSaml2.Testing.Certificates
         {
             var issuers = new SamlCertificate[]
             {
-                new SamlCertificate{Issuer = new Uri("foo:bar1")}, 
-                new SamlCertificate{Issuer = new Uri("foo:bar2")}, 
-                new SamlCertificate{Issuer = new Uri("foo:bar3")} 
+                new SamlCertificate{Issuer = "foo:bar1"}, 
+                new SamlCertificate{Issuer = "foo:bar2"}, 
+                new SamlCertificate{Issuer = "foo:bar3"} 
             };
 
             var repository = new BasicSamlCertificateRepository(issuers);
@@ -30,9 +30,9 @@ namespace FubuSaml2.Testing.Certificates
         {
             var issuers = new SamlCertificate[]
             {
-                new SamlCertificate{Issuer = new Uri("foo:bar1")}, 
-                new SamlCertificate{Issuer = new Uri("foo:bar2")}, 
-                new SamlCertificate{Issuer = new Uri("foo:bar3")} 
+                new SamlCertificate{Issuer = "foo:bar1"}, 
+                new SamlCertificate{Issuer = "foo:bar2"}, 
+                new SamlCertificate{Issuer = "foo:bar3"} 
             };
 
             var repository = new BasicSamlCertificateRepository(issuers);

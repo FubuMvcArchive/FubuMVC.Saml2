@@ -18,7 +18,7 @@ namespace FubuSaml2.Testing.Certificates
             var issuer = new SamlCertificate
             {
                 Thumbprint = Guid.NewGuid().ToString(),
-                Issuer = new Uri("foo:bar")
+                Issuer = "foo:bar"
             };
 
             var cert = ObjectMother.Certificate2();
@@ -39,7 +39,7 @@ namespace FubuSaml2.Testing.Certificates
             var issuer = new SamlCertificate
             {
                 Thumbprint = Guid.NewGuid().ToString(),
-                Issuer = new Uri("foo:bar")
+                Issuer = "foo:bar"
             };
 
 
@@ -54,7 +54,7 @@ namespace FubuSaml2.Testing.Certificates
         [Test]
         public void returns_null_if_no_saml_certificate_for_that_issuer()
         {
-            ClassUnderTest.LoadCertificate(new Uri("foo:bar"))
+            ClassUnderTest.LoadCertificate("foo:bar")
                 .ShouldBeNull();
         }
 
@@ -64,7 +64,7 @@ namespace FubuSaml2.Testing.Certificates
             var cert = ObjectMother.Certificate1();
             var response = new SamlResponse
             {
-                Issuer = new Uri("this:guy"),
+                Issuer = "this:guy",
                 Certificates = new ICertificate[] {cert}
             };
 
@@ -81,7 +81,7 @@ namespace FubuSaml2.Testing.Certificates
             var cert = ObjectMother.Certificate1();
             var response = new SamlResponse
             {
-                Issuer = new Uri("this:guy"),
+                Issuer = "this:guy",
                 Certificates = new ICertificate[] { cert }
             };
 
@@ -104,7 +104,7 @@ namespace FubuSaml2.Testing.Certificates
 
             var response = new SamlResponse
             {
-                Issuer = new Uri("this:guy"),
+                Issuer = "this:guy",
                 Certificates = certs
             };
 
@@ -130,7 +130,7 @@ namespace FubuSaml2.Testing.Certificates
 
             var response = new SamlResponse
             {
-                Issuer = new Uri("this:guy"),
+                Issuer = "this:guy",
                 Certificates = certs
             };
 

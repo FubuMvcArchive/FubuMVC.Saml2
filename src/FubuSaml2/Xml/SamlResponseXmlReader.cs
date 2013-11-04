@@ -62,9 +62,9 @@ namespace FubuSaml2.Xml
                 });
         }
 
-        public Uri ReadIssuer()
+        public string ReadIssuer()
         {
-            return findText(Issuer, AssertionXsd).ToUri();
+            return findText(Issuer, AssertionXsd);
         }
 
         public SamlResponse Read()

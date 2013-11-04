@@ -5,7 +5,7 @@ namespace FubuSaml2.Certificates
 {
     public interface ISamlCertificateRepository
     {
-        SamlCertificate Find(Uri samlIssuer);
+        SamlCertificate Find(string samlIssuer);
         IEnumerable<SamlCertificate> AllKnownCertificates();
     }
 }

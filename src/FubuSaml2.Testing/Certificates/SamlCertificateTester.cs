@@ -55,7 +55,7 @@ namespace FubuSaml2.Testing.Certificates
         {
             var cert1 = new SamlCertificate
             {
-                Issuer = new Uri("foo:bar1"),
+                Issuer = "foo:bar1",
                 SerialNumber = "12345",
                 CertificateIssuer = "DN=Foo",
                 Thumbprint = "ab cd ef"

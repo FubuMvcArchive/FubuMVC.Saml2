@@ -55,7 +55,7 @@ namespace FubuMVC.Saml2.Serenity
         }
 
         [FormatAs("The issuer is {issuer}")]
-        public void IssuerIs(Uri issuer)
+        public void IssuerIs(string issuer)
         {
             _response.Issuer = issuer;
         }

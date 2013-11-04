@@ -180,9 +180,9 @@ namespace FubuSaml2.Testing.Encryption
             return SamlValidationKeys.CannotMatchIssuer;
         }
 
-        public X509Certificate2 LoadCertificate(Uri issuer)
+        public X509Certificate2 LoadCertificate(string issuer)
         {
-            return _certificate.Issuer == issuer ? _realCertificate : null;
+            return _certificate.Issuer.Equals(issuer, StringComparison.OrdinalIgnoreCase) ? _realCertificate : null;
         }
     }
 }

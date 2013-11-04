@@ -18,7 +18,7 @@ namespace FubuSaml2.Encryption
                 KeyInfo = keyInfo
             };
 
-            var reference = new Reference("#SamlAssertion-" + response.Id);
+            var reference = new Reference(AssertionIdPrefix + response.Id);
             reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
             signedXml.AddReference(reference);
             signedXml.ComputeSignature();
