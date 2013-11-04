@@ -9,19 +9,19 @@ namespace FubuSaml2.Validation
     /// </summary>
     public class AudienceValidationRule : ISamlValidationRule
     {
-        private readonly Uri[] _audiences;
+        private readonly string[] _audiences;
 
-        public AudienceValidationRule(Uri audience)
+        public AudienceValidationRule(string audience)
         {
-            _audiences = new Uri[]{audience};
+            _audiences = new []{audience};
         }
 
-        public AudienceValidationRule(params Uri[] audiences)
+        public AudienceValidationRule(params string[] audiences)
         {
             _audiences = audiences;
         }
 
-        public IEnumerable<Uri> Audiences
+        public IEnumerable<string> Audiences
         {
             get { return _audiences; }
         }

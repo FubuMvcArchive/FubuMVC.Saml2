@@ -18,7 +18,7 @@ namespace FubuMVC.Saml2.Storyteller
         }
 
         [FormatAs("We recognize to audience {audience}")]
-        public void Audience(Uri audience)
+        public void Audience(string audience)
         {
             FakeSamlResponseHandler.Add(audience);
         }

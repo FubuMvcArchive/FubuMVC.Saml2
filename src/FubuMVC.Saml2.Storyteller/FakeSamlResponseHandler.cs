@@ -8,7 +8,7 @@ namespace FubuMVC.Saml2.Storyteller
 {
     public class FakeSamlResponseHandler : BasicSamlResponseHandler
     {
-        private static readonly IList<Uri> _audiences = new List<Uri>();
+        private static readonly IList<string> _audiences = new List<string>();
 
         public FakeSamlResponseHandler(ILogger logger) : base(logger)
         {
@@ -24,7 +24,7 @@ namespace FubuMVC.Saml2.Storyteller
             return response.Subject.Name.Value;
         }
 
-        public static void Add(Uri audience)
+        public static void Add(string audience)
         {
             _audiences.Add(audience);
         }

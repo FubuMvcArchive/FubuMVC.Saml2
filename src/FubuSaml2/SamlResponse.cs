@@ -87,7 +87,7 @@ namespace FubuSaml2
             }
         }
 
-        public void AddAudienceRestriction(Uri audience)
+        public void AddAudienceRestriction(string audience)
         {
             if (Conditions == null)
             {

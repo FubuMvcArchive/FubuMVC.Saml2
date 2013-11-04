@@ -5,17 +5,17 @@ namespace FubuSaml2
 {
     public class AudienceRestriction : ICondition
     {
-        public Uri[] Audiences { get; set; }
+        public string[] Audiences { get; set; }
 
-        public void Add(Uri audience)
+        public void Add(string audience)
         {
             if (Audiences == null)
             {
-                Audiences = new Uri[] {audience};
+                Audiences = new[] {audience};
             }
             else
             {
-                Audiences = Audiences.Union(new Uri[] {audience}).ToArray();
+                Audiences = Audiences.Union(new[] {audience}).ToArray();
             }
         }
     }

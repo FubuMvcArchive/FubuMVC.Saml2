@@ -18,7 +18,7 @@ namespace FubuSaml2.Testing.Validation
         {
             response = new SamlResponse();
 
-            theRule = new AudienceValidationRule(new Uri("foo:bar"), new Uri("bar:foo"));
+            theRule = new AudienceValidationRule("foo:bar", "bar:foo");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace FubuSaml2.Testing.Validation
         public void one_matching_audience_so_no_errors()
         {
             response.AddAudienceRestriction(theRule.Audiences.ElementAt(0));
-            response.AddAudienceRestriction("something:random".ToUri());
+            response.AddAudienceRestriction("something:random");
 
             theRule.Validate(response);
             response.Errors.Any().ShouldBeFalse();
@@ -41,7 +41,7 @@ namespace FubuSaml2.Testing.Validation
         [Test]
         public void has_audiences_that_do_not_match()
         {
-            response.AddAudienceRestriction("something:random".ToUri());
+            response.AddAudienceRestriction("something:random");
 
             theRule.Validate(response);
             response.Errors.Single().ShouldEqual(new SamlError(SamlValidationKeys.AudiencesDoNotMatch));

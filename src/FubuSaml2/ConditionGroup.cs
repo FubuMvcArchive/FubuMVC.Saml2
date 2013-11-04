@@ -29,7 +29,7 @@ namespace FubuSaml2
                 .Children(AudienceRestriction, AssertionXsd)
                 .Select(elem =>
                 {
-                    var audiences = elem.Children(Audience, AssertionXsd).Select(x => x.InnerText.ToUri()).ToArray();
+                    var audiences = elem.Children(Audience, AssertionXsd).Select(x => x.InnerText).ToArray();
                     return new AudienceRestriction
                     {
                         Audiences = audiences
@@ -56,7 +56,7 @@ namespace FubuSaml2
             _conditions.Add(condition);
         }
 
-        public void RestrictToAudience(Uri uri)
+        public void RestrictToAudience(string uri)
         {
             var restriction = new AudienceRestriction();
             restriction.Add(uri);

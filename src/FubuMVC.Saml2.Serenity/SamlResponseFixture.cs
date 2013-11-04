@@ -104,7 +104,7 @@ namespace FubuMVC.Saml2.Serenity
         }
 
         [FormatAs("Audience is restricted to {uri}")]
-        public void RestrictAudience(Uri uri)
+        public void RestrictAudience(string uri)
         {
             _response.Conditions.RestrictToAudience(uri);            
         }
