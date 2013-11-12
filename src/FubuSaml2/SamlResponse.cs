@@ -48,7 +48,7 @@ namespace FubuSaml2
         } 
 
         public SamlStatus Status { get; set; }
-        public Uri Issuer { get; set; }
+        public string Issuer { get; set; }
         public IEnumerable<ICertificate> Certificates { get; set; }
         public SignatureStatus Signed { get; set; }
 
@@ -87,7 +87,7 @@ namespace FubuSaml2
             }
         }
 
-        public void AddAudienceRestriction(Uri audience)
+        public void AddAudienceRestriction(string audience)
         {
             if (Conditions == null)
             {

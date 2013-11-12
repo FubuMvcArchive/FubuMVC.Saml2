@@ -9,7 +9,7 @@ namespace FubuSaml2.Certificates
     {
         public string SerialNumber { get; set; }
         public string CertificateIssuer { get; set; }
-        public Uri Issuer { get; set; }
+        public string Issuer { get; set; }
         public string Thumbprint { get; set; }
 
 
@@ -27,7 +27,7 @@ namespace FubuSaml2.Certificates
         {
             var parts = text.ToDelimitedArray();
 
-            Issuer = new Uri(parts[0]);
+            Issuer = parts[0];
             CertificateIssuer = parts[1];
             SerialNumber = parts[2];
             Thumbprint = parts[3];

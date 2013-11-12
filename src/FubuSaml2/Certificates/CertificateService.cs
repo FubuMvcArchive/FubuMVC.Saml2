@@ -26,7 +26,7 @@ namespace FubuSaml2.Certificates
                        : SamlValidationKeys.NoValidCertificates;
         }
 
-        public X509Certificate2 LoadCertificate(Uri issuer)
+        public X509Certificate2 LoadCertificate(string issuer)
         {
             var samlCertificate = _repository.Find(issuer);
 

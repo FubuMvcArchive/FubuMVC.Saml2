@@ -14,9 +14,9 @@ namespace FubuSaml2.Certificates
             _issuers = issuers;
         }
 
-        public SamlCertificate Find(Uri samlIssuer)
+        public SamlCertificate Find(string samlIssuer)
         {
-            return _issuers.FirstOrDefault(x => x.Issuer == samlIssuer);
+            return _issuers.FirstOrDefault(x => x.Issuer.Equals(samlIssuer, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<SamlCertificate> AllKnownCertificates()

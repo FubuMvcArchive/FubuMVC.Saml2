@@ -26,7 +26,7 @@ namespace FubuMVC.Saml2
 
         public string Name { get; set; }
 
-        public Uri Issuer { get; set; }
+        public string Issuer { get; set; }
 
         public string SamlId { get; set; }
     }
@@ -48,7 +48,7 @@ namespace FubuMVC.Saml2
         public string Name { get; set; }
         public string[] Errors { get; set; }
 
-        public Uri Issuer { get; set; }
+        public string Issuer { get; set; }
 
         public string SamlId { get; set; }
     }

@@ -42,7 +42,7 @@ namespace FubuMVC.Saml2.Storyteller
 
             SamlCertificate = new SamlCertificate
             {
-                Issuer = "fake:saml:issuer".ToUri(),
+                Issuer = "fake:saml:issuer",
                 CertificateIssuer = Certificate.Issuer,
                 SerialNumber = Certificate.SerialNumber,
                 Thumbprint = Certificate.Thumbprint

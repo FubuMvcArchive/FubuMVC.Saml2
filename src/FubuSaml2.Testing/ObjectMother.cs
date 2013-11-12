@@ -29,7 +29,7 @@ namespace FubuSaml2.Testing
             return new SamlResponseXmlReader(xml).Read();
         }
 
-        public static SamlCertificate SamlCertificateMatching(Uri issuer, ICertificate certificate)
+        public static SamlCertificate SamlCertificateMatching(string issuer, ICertificate certificate)
         {
             if (certificate == null) throw new ArgumentNullException("certificate");
             return new SamlCertificate

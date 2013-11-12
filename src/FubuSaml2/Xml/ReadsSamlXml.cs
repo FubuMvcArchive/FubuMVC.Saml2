@@ -3,7 +3,9 @@
     public class ReadsSamlXml
     {
         public const string AssertionXsd = "urn:oasis:names:tc:SAML:2.0:assertion";
+        public const string AssertionPrefix = "saml2";
         public const string ProtocolXsd = "urn:oasis:names:tc:SAML:2.0:protocol";
+        public const string ProtocolPrefix = "samlp";
         public const string EncryptedXsd = "http://www.w3.org/2001/04/xmlenc#";
 
         protected const string ID = "ID";

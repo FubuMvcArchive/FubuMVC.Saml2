@@ -7,6 +7,6 @@ namespace FubuSaml2.Certificates
     public interface ICertificateService
     {
         SamlValidationKeys Validate(SamlResponse response);
-        X509Certificate2 LoadCertificate(Uri issuer);
+        X509Certificate2 LoadCertificate(string issuer);
     }
 }
