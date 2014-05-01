@@ -12,11 +12,11 @@
     <description>Adds Saml2 support to a FubuMVC application</description>
     <tags>fubumvc authentication saml2</tags>
     <dependencies>
-      <dependency id="FubuMVC.Authentication" version="0.1.0.274" />
+      <dependency id="FubuMVC.Authentication" version="0.1.0.402" />
       <dependency id="FubuSaml2" />
     </dependencies>
   </metadata>
   <files xmlns="">
-    <file src="..\..\src\FubuMVC.Saml2\bin\release\FubuMVC.Saml2.dll" target="lib\net40" />
+    <file src="..\..\src\FubuMVC.Saml2\bin\release\FubuMVC.Saml2.dll" target="lib\net45" />
   </files>
 </package>

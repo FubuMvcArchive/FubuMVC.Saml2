@@ -16,6 +16,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\src\FubuSaml2\bin\release\FubuSaml2.dll" target="lib\net40" />
+    <file src="..\..\src\FubuSaml2\bin\release\FubuSaml2.dll" target="lib\net45" />
   </files>
 </package>

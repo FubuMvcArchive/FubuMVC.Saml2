@@ -1,10 +1,8 @@
-﻿using FubuMVC.Core;
-using FubuMVC.Core.Registration;
+﻿using FubuMVC.Core.Registration;
 using FubuSaml2.Validation;
 
 namespace FubuMVC.Saml2
 {
-    [ConfigurationType(ConfigurationType.Services)]
     public class SamlResponseValidationRulesRegistration : IConfigurationAction
     {
         public void Configure(BehaviorGraph graph)

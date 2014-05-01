@@ -6,8 +6,8 @@ namespace FubuMVC.Saml2
     {
         public void Configure(FubuRegistry registry)
         {
-            registry.Policies.Add<SamlResponseValidationRulesRegistration>();
-            registry.Policies.Add<Saml2AuthenticationRegistration>();
+            registry.Policies.Global.Add<SamlResponseValidationRulesRegistration>();
+            registry.Policies.Global.Add<Saml2AuthenticationRegistration>();
             registry.Services<Saml2ServicesRegistry>();
 
 

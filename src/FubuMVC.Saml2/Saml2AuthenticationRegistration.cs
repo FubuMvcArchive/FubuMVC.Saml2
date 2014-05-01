@@ -4,7 +4,6 @@ using FubuMVC.Core.Registration;
 
 namespace FubuMVC.Saml2
 {
-    [ConfigurationType(ConfigurationType.Explicit)]
     public class Saml2AuthenticationRegistration : IConfigurationAction
     {
         public void Configure(BehaviorGraph graph)

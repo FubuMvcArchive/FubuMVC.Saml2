@@ -16,31 +16,7 @@ namespace FubuMVC.Saml2.Testing
     [TestFixture]
     public class bottle_configuration_integration_tester
     {
-        [Test]
-        public void register_with_basic_authentication_enabled()
-        {
-            var registry = new FubuRegistry();
-            registry.Import<Saml2Extensions>();
-            registry.Import<ApplyAuthentication>();
 
-            var samlCertificateRepository = MockRepository.GenerateMock<ISamlCertificateRepository>();
-            samlCertificateRepository.Stub(x => x.AllKnownCertificates()).Return(new SamlCertificate[0]);
-
-            registry.Services(x => {
-                x.SetServiceIfNone<IPrincipalBuilder>(MockRepository.GenerateMock<IPrincipalBuilder>());
-                x.AddService<ISamlResponseHandler>(MockRepository.GenerateMock<ISamlResponseHandler>());
-                x.SetServiceIfNone<ISamlCertificateRepository>(samlCertificateRepository);
-            });
-
-            var container = new Container();
-            var runtime = FubuApplication.For(registry).StructureMap(container).Bootstrap();
-
-
-            var strategies = container.GetAllInstances<IAuthenticationStrategy>();
-            strategies.First().ShouldBeOfType<SamlAuthenticationStrategy>();
-
-            strategies.Last().ShouldBeOfType<MembershipAuthentication>();
-        }
 
         [Test]
         public void register_with_basic_authentication_disabled()
